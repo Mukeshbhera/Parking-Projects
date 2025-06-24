@@ -1,0 +1,153 @@
+{% extends 'parking_dashboard/admin_dashboard/parkinguser/base.html' %}  
+{% block content %}
+{% load static %}
+
+
+
+<div class="container-fluid">
+  <div class="card bg-light-info shadow-none position-relative overflow-hidden">
+    <div class="card-body px-4 py-3">
+        <div class="row align-items-center">
+            <div class="col-9">
+                <h4 class="fw-semibold mb-8">User Profile</h4>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a class="text-muted text-decoration-none" href="{% url 'parkinguser' %}">Dashboard</a>
+                        </li>
+                        <li class="breadcrumb-item" aria-current="page">
+                            profile
+                        </li>
+                    </ol>
+                </nav> 
+            </div>
+            <div class="col-3">
+                <div class="text-center mb-n5">
+                    <img src="{% static 'admin_css_js/dist/images/breadcrumb/ChatBc.png' %}" alt="" class="img-fluid mb-n4">
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="border-bottom title-part-padding">
+          {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-success">
+                    {{ message }}
+                </div>
+            {% endfor %}
+          {% endif %}
+          <h4 class="card-title mb-0">Welcome {{ request.user.name }} </h4>
+        </div>
+        <div class="card-body">
+          <form method="POST" action="{% url 'parkinguserprofile' %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="row">
+              <div class="col-md-12 mb-12 mb-3">
+                <label for="validationDefault01">Merchant Id</label>
+                <input type="number" class="form-control" placeholder="{{merchant.merchant_id}}" value="{{merchant.merchant_id}}" disabled>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4 mb-3">
+                <label for="validationDefault01">Name</label>
+                <input type="text" class="form-control" placeholder="name" name="name"  maxlength="50" value="{{merchant.name}}">
+              </div>
+              <div class="col-md-4 mb-3">
+                <label for="validationDefault02">Email Id</label>
+                <input type="email" class="form-control" placeholder="email id" name="email" maxlength="50" value="{{merchant.email}}">
+              </div>
+              <div class="col-md-4 mb-3">
+                <label for="validationDefaultUsername">Mobile</label>
+                <input type="number" class="form-control" placeholder="mobile" name="mobile" value="{{merchant.mobile}}"oninput="if(this.value.length > 10) this.value = this.value.slice(0, 10);" min="999999999" max="9999999999">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4 mb-3">
+                <label for="validationDefault01">Company Name</label>
+                <input type="text" class="form-control" placeholder="Company Name" name="company_name" maxlength="50" value="{{merchant.company_name}}">
+              </div>
+              <div class="col-md-4 mb-3">
+                <label for="validationDefault02">Address</label>
+                <input type="text" class="form-control" placeholder="address" name="address" maxlength="50" value="{{merchant.address}}">
+              </div>
+              <div class="col-md-4 mb-3">
+                <label for="validationDefault03">City</label>
+                <input type="text" class="form-control" placeholder="City" name="city" maxlength="50" value="{{merchant.city}}">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4 mb-3">
+                <label for="validationDefault04">State</label>
+                <input type="text" class="form-control" placeholder="State" name="state" maxlength="50" value="{{merchant.state}}">
+              </div>
+              <div class="col-md-4 mb-3">
+                <label for="validationDefault05">Zip</label>
+                <input type="number" class="form-control" placeholder="Zip" name="pincode" value="{{merchant.pincode}}" oninput="if(this.value.length > 6) this.value = this.value.slice(0, 6);" min="99999" max="999999">
+              </div>
+              <div class="col-md-4 mb-3">
+                <label for="validationDefaultUsername">Country</label>
+                <input type="text" class="form-control" placeholder="country" name="country" maxlength="50" value="{{merchant.country}}">
+              </div>
+            </div>
+            
+            <div class="row">
+              <div class="col-md-4 mb-3">
+                <label for="validationDefault05">Bike Price</label>
+                <input type="number"class="form-control" name="bike_price" placeholder="Bike Price" value="{{merchant.bike_price}}" min="0" onKeyPress="if(this.value.length==3) return false;">
+              </div>
+              <div class="col-md-4 mb-3">
+                <label for="validationDefault05">Auto Price</label>
+                <input type="number"class="form-control" name="auto_price" placeholder="Auto Price" value="{{merchant.auto_price}}"  min="0" onKeyPress="if(this.value.length==3) return false;">
+              </div>
+              <div class="col-md-4 mb-3">
+                <label for="validationDefault05">Car Price</label>
+                <input type="number" class="form-control" name="car_price" placeholder="Car Price" value="{{merchant.car_price}}" min="0" onKeyPress="if(this.value.length==3) return false;">
+                </div>
+              <div class="col-md-4 mb-3">
+                <label for="validationDefault05">Pickup Price</label>
+                <input type="number" class="form-control" name="pickup_price" placeholder="Pickup Price" value="{{merchant.pickup_price}}" min="0" onKeyPress="if(this.value.length==3) return false;">
+                </div>
+              <div class="col-md-4 mb-3">
+                <label for="validationDefault05">Ev Price</label>
+                <input type="number" class="form-control" name="ev_price" placeholder="Ev Price" value="{{merchant.ev_price}}" min="0" onKeyPress="if(this.value.length==3) return false;">
+                </div>
+              <div class="col-md-4 mb-3">
+                <label for="validationDefault05">Truck Price</label>
+                <input type="number" class="form-control" name="truck_price" placeholder="Truck Price" value="{{merchant.truck_price}}" min="0" onKeyPress="if(this.value.length==3) return false;">
+                </div>
+              <div class="col-md-4 mb-3">
+                <label for="validationDefault05">Custom Hours</label>
+                <input type="number" class="form-control" name="custom_hours" placeholder="Custom Hours" value="{{merchant.custom_hours}}" min="1" onKeyPress="if(this.value.length==3) return false;">
+              </div>
+              <div class="col-md-4 mb-3">
+                <label for="validationDefault05">Profile Image</label>
+                <input type="file" src="{{ merchant.profile_img.url }}" class="form-control" name="profile_img" >
+              </div>
+              {% comment %} <div class="col-md-4 mb-3">
+                <label for="validationDefault05">Profile Image</label>
+                <img src="{{ merchant.profile_img.url }}" type="file" class="form-control"alt="Profile Image">
+                <input type="file" src="{{ merchant.url }}" class="form-control" name="profile_img" accept="image/*">
+              </div> {% endcomment %}
+                <div class="col-md-12 mb-12">
+                  <label for="validationDefault05">Description</label>
+                  <textarea class="form-control" name="description" maxlength="50">{{merchant.description}}</textarea>
+                </div>
+            </div>
+
+            <button class="btn btn-info rounded-pill px-4 mt-3" type="submit">
+              Update Profile
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+{% endblock %}

@@ -1,0 +1,238 @@
+{% extends 'parking_dashboard/admin_dashboard/parkinguser/base.html' %}  
+{% block content %}
+{% load static %}
+
+<div class="container-fluid">
+  <div class="card bg-light-info shadow-none position-relative overflow-hidden">
+    <div class="card-body px-4 py-3">
+        <div class="row align-items-center">
+            <div class="col-9">
+                <h4 class="fw-semibold mb-8">Setting</h4>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a class="text-muted text-decoration-none" href="{% url 'setting' %}">Dashboard</a>
+                        </li>
+                        <li class="breadcrumb-item" aria-current="page">
+                          Setting
+                        </li>
+                    </ol>
+                </nav> 
+            </div>
+            <div class="col-3">
+                <div class="text-center mb-n5">
+                    <img src="{% static 'admin_css_js/dist/images/breadcrumb/ChatBc.png' %}" alt="" class="img-fluid mb-n4">
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="border-bottom title-part-padding">
+          {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-success">
+                    {{ message }}
+                </div>
+            {% endfor %}
+          {% endif %}
+          {% comment %} <h4 class="card-title mb-0">Welcome {{ request.user.name }} </h4> {% endcomment %}
+        </div>
+        <div class="card-body">
+          <form method="POST" action="{% url 'setting' %}">
+            {% csrf_token %}
+            {% comment %} <div class="row">
+              <div class="col-md-12 mb-12 mb-3">
+                <label for="validationDefault01">Parking User</label>
+                <input type="number" class="form-control" placeholder="{{setting.merchant_id}}" value="{{setting.merchant_id}}" disabled>
+              </div>
+            </div> {% endcomment %}
+            <h4>Vehicle Available</h4>
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <input class="form-check-input" type="checkbox" name="is_bike" {% if setting.is_bike %}checked{% endif %} value="True">
+                    <label for="checkboxExample">Bike</label>
+                    <label class="form-check-label" for="checkboxExample">
+                    </label>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <input class="form-check-input" type="checkbox" name="is_car" {% if setting.is_car %}checked{% endif %} value="True">
+                    <label for="checkboxExample">Car</label>
+                    <label class="form-check-label" for="checkboxExample">
+                    </label>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <input class="form-check-input" type="checkbox" name="is_auto" {% if setting.is_auto %}checked{% endif %} value="True">
+                    <label for="checkboxExample">Auto</label>
+                    <label class="form-check-label" for="checkboxExample">
+                    </label>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <input class="form-check-input" type="checkbox" name="is_pickup" {% if setting.is_pickup %}checked{% endif %} value="True">
+                    <label for="checkboxExample">Pickup</label>
+                    <label class="form-check-label" for="checkboxExample">
+                    </label>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <input class="form-check-input" type="checkbox" name="is_ev" {% if setting.is_ev %}checked{% endif %} value="True">
+                    <label for="checkboxExample">Ev</label>
+                    <label class="form-check-label" for="checkboxExample">
+                    </label>
+                </div>
+                <div class="col-md-4 mb-3">
+                    
+                      <input class="form-check-input" type="checkbox" name="is_truck" {% if setting.is_truck %}checked{% endif %} value="True">
+                      <label for="checkboxExample">Truck</label>
+                      <label class="form-check-label" for="checkboxExample">
+                    </label>
+                </div>
+              </div>
+              <h4>Permission Field</h4>
+              <div class="row">
+                <div class="col-md-4 mb-3">
+                  <input class="form-check-input" type="checkbox" id="name_visibility" name="name_visibility" {% if setting.name_visibility %}checked{% endif %} value="True">
+                  <label for="name_visibility">Name Visibility</label>
+                  <label class="form-check-label" for="name_visibility"></label>
+                </div>
+                <div class="col-md-4 mb-3" id="name_mandatory_container">
+                    <input class="form-check-input" type="checkbox" id="name_mandatory" name="name_mandatory" {% if setting.name_mandatory %}checked{% endif %} value="True">
+                    <label for="name_mandatory">Name Mandatory</label>
+                    <label class="form-check-label" for="name_mandatory"></label>
+                </div>
+            </div>
+              <div class="row">
+                <div class="col-md-4 mb-3" >
+                  <input class="form-check-input" type="checkbox" id="mobile_visibility" name="mobile_visibility" {% if setting.mobile_visibility %}checked{% endif %} value="True">
+                  <label for="mobile_visibility">Mobile Visibility</label>
+                  <label class="form-check-label" for="mobile_visibility">
+                  </label>
+                </div>
+                <div class="col-md-4 mb-3" id="mobile_mandatory_container">
+                    <input class="form-check-input" type="checkbox" id="mobile_mandatory" name="mobile_mandatory" {% if setting.mobile_mandatory %}checked{% endif %} value="True">
+                  <label for="mobile_mandatory">Mobile Mandatory</label>
+                  <label class="form-check-label" for="mobile_mandatory">
+                  </label>
+              </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4 mb-3">
+                  <input class="form-check-input" type="checkbox" id="captcha_visibility" name="captcha_visibility" {% if setting.captcha_visibility %}checked{% endif %} value="True">
+                  <label for="captcha_visibility">Captcha Visibility</label>
+                  <label class="form-check-label" for="captcha_visibility">
+                  </label>
+              </div>
+                <div class="col-md-4 mb-3" id="captcha_mandatory_container">
+                  <input class="form-check-input" type="checkbox" id="captcha_mandatory" name="captcha_mandatory" {% if setting.captcha_mandatory %}checked{% endif %} value="True">
+                  <label for="captcha_mandatory">Captcha Mandatory</label>
+                  <label class="form-check-label" for="captcha_mandatory">
+                  </label>
+              </div>
+              </div>
+            <button class="btn btn-info rounded-pill px-4 mt-3" type="submit">
+              Submit form
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        //$('#name_mandatory_container').hide();
+        $('#name_visibility').change(function() {
+            if (this.checked) {
+                $('#name_mandatory_container').show();
+                $('#name_mandatory').prop('checked', true);
+            } else {
+                $('#name_mandatory_container').hide();
+                $('#name_mandatory').prop('checked', false);
+            }
+        });
+        if ($('#name_visibility').is(':checked')) {
+          $('#name_mandatory_container').show();
+        } else {
+          $('#name_mandatory_container').hide();
+        }
+    });
+
+    $(document).ready(function() {
+        //$('#mobile_mandatory_container').hide();
+        $('#mobile_visibility').change(function() {
+            if (this.checked) {
+                $('#mobile_mandatory_container').show();
+                $('#mobile_mandatory').prop('checked', true);
+            } else {
+                $('#mobile_mandatory_container').hide();
+                $('#mobile_mandatory').prop('checked', false);
+            }
+        });
+        if ($('#mobile_visibility').is(':checked')) {
+          $('#mobile_mandatory_container').show();
+        } else {
+          $('#mobile_mandatory_container').hide();
+        }
+        
+    });
+    
+    $(document).ready(function() {
+        //$('#captcha_mandatory_container').hide();
+        $('#captcha_visibility').change(function() {
+            if (this.checked) {
+                $('#captcha_mandatory_container').show();
+                $('#captcha_mandatory').prop('checked', true);
+            } else {
+                $('#captcha_mandatory_container').hide();
+                $('#captcha_mandatory').prop('checked', false);
+            }
+        });
+        if ($('#captcha_visibility').is(':checked')) {
+          $('#captcha_mandatory_container').show();
+        } else {
+          $('#captcha_mandatory_container').hide();
+        }
+    });
+</script>
+
+
+
+{% comment %} <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#name_visibility_container').hide();
+
+        $('#name_mandatory').change(function() {
+            if (this.checked) {
+                $('#name_visibility_container').show();
+                $('#name_visibility').prop('checked', true);
+            } else {
+                $('#name_visibility_container').hide();
+                $('#name_visibility').prop('checked', false);
+            }
+        });
+
+
+        var captchaVisibilityState = localStorage.getItem('captcha_visibility_state');
+        if (captchaVisibilityState === 'true') {
+            $('#captcha_visibility').prop('checked', true);
+        }
+        $('#captcha_mandatory').change(function() {
+            if (this.checked) {
+                $('#captcha_visibility_container').show();
+                $('#captcha_visibility').prop('checked', true);
+                localStorage.setItem('captcha_visibility_state', 'true');
+            } else {
+                $('#captcha_visibility_container').hide();
+                $('#captcha_visibility').prop('checked', false);
+                localStorage.setItem('captcha_visibility_state', 'false');
+            }
+        });
+    });
+</script> {% endcomment %}
+
+{% endblock %}

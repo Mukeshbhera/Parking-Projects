@@ -1,0 +1,113 @@
+{% extends 'parking_dashboard/admin_dashboard/parkinguser/base.html' %}  
+{% block content %}
+{% load static %}
+
+
+<div class="container-fluid">
+  <div class="card bg-light-info shadow-none position-relative overflow-hidden">
+    <div class="card-body px-4 py-3">
+        <div class="row align-items-center">
+            <div class="col-9">
+                <h4 class="fw-semibold mb-8">App Customization</h4>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a class="text-muted text-decoration-none" href="{% url 'appcustomization' %}">Dashboard</a>
+                        </li>
+                        <li class="breadcrumb-item" aria-current="page">
+                          App Customization
+                        </li>
+                    </ol>
+                </nav> 
+            </div>
+            <div class="col-3">
+                <div class="text-center mb-n5">
+                    <img src="{% static 'admin_css_js/dist/images/breadcrumb/ChatBc.png' %}" alt="" class="img-fluid mb-n4">
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="border-bottom title-part-padding">
+          {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-success">
+                    {{ message }}
+                </div>
+            {% endfor %}
+          {% endif %}
+          {% comment %} <h4 class="card-title mb-0">Welcome {{ request.user.name }} </h4> {% endcomment %}
+        </div>
+        <div class="card-body">
+          <form method="POST" action="{% url 'appcustomization' %}">
+            {% csrf_token %}
+            {% comment %} <div class="row">
+              <div class="col-md-12 mb-12 mb-3">
+                <label for="validationDefault01">Parking User</label>
+                <input type="number" class="form-control" placeholder="{{ab.merchant_id}}" value="{{ab.merchant_id}}" disabled>
+              </div>
+            </div> {% endcomment %}
+            <div class="row">
+              <div class="col-md-4 mb-3">
+                <label for="validationDefault01">Header Name</label>
+                <input type="text" class="form-control" placeholder="header_name" name="header_name" maxlength="12" required value="{{ab.header_name}}">
+              </div>
+              <div class="col-md-4 mb-3">
+                <label for="validationDefault02">Footer Home</label>
+                <input type="text" class="form-control" placeholder="footer_home" name="footer_home" maxlength="12" required value="{{ab.footer_home}}">
+              </div>
+              <div class="col-md-4 mb-3">
+                <label for="validationDefault01">Footer enter user</label>
+                <input type="text" class="form-control" placeholder="footer_enter_user" name="footer_enter_user" maxlength="12" required value="{{ab.footer_enter_user}}">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4 mb-3">
+                <label for="validationDefault02">Home Colection  Price</label>
+                <input type="text" class="form-control" placeholder="home_colection_price" name="home_colection_price" maxlength="15" required value="{{ab.home_colection_price}}">
+              </div>
+              <div class="col-md-4 mb-3">
+                <label for="validationDefault03">Footer Profile</label>
+                <input type="text" class="form-control" placeholder="footer_profile" name="footer_profile" maxlength="12" required value="{{ab.footer_profile}}">
+              </div>
+              <div class="col-md-4 mb-3">
+                <label for="validationDefault04">Home Settled</label>
+                <input type="text" class="form-control" placeholder="home_settled" name="home_settled" maxlength="12" required value="{{ab.home_settled}}">
+              </div>
+            </div>
+            
+            <div class="row">
+              <div class="col-md-4 mb-3">
+                <label for="validationDefaultUsername">Home unsettled</label>
+                <input type="text" class="form-control" placeholder="home_unsettled" name="home_unsettled" maxlength="12" required value="{{ab.home_unsettled}}">
+              </div>
+              <div class="col-md-4 mb-3">
+                <label for="validationDefault05">Home Button In</label>
+                <input type="text" class="form-control" name="home_button_in" placeholder="home_button_in" maxlength="10" required value="{{ab.home_button_in}}">
+              </div>
+              <div class="col-md-4 mb-3">
+                <label for="validationDefault05">Home Button Out</label>
+                <input type="text" class="form-control" name="home_button_out" placeholder="home_button_out" maxlength="10" required value="{{ab.home_button_out}}">
+              </div>
+              <div class="col-md-4 mb-3">
+                <label for="validationDefault05">All Enter User</label>
+                <input type="text" class="form-control" name="all_enter_user" placeholder="all_enter_user" maxlength="20" required value="{{ab.all_enter_user}}">
+              </div>
+            </div>
+
+            <button class="btn btn-info rounded-pill px-4 mt-3" type="submit">
+              Submit form
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+{% endblock %}

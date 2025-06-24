@@ -1,0 +1,109 @@
+{% extends 'parking_dashboard/admin_dashboard/base.html' %}  
+{% block content %}
+{% load static %}
+
+
+
+<div class="container-fluid">
+  <div class="card bg-light-info shadow-none position-relative overflow-hidden">
+    <div class="card-body px-4 py-3">
+        <div class="row align-items-center">
+            <div class="col-9">
+                <h4 class="fw-semibold mb-8">User Profile</h4>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a class="text-muted text-decoration-none" href="{% url 'merchantapproved' %}">Dashboard</a>
+                        </li>
+                        <li class="breadcrumb-item" aria-current="page">
+                            profile
+                        </li>
+                    </ol>
+                </nav>
+            </div>
+            <div class="col-3">
+                <div class="text-center mb-n5">
+                    <img src="{% static 'admin_css_js/dist/images/breadcrumb/ChatBc.png' %}" alt="" class="img-fluid mb-n4">
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="border-bottom title-part-padding">
+          {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-success">
+                    {{ message }}
+                </div>
+            {% endfor %}
+          {% endif %}
+          <h4 class="card-title mb-0">Welcome {{ request.user.name }}</h4>
+        </div>
+        <div class="card-body">
+          <form method="POST" action="{% url 'adminuserprofile' %}">
+            {% csrf_token %}
+            <div class="row">
+              <div class="col-md-12 mb-12 mb-3">
+                <label for="validationDefault01">Admin ID</label>
+                <input type="number" class="form-control" placeholder="{{admin.admin_id}}" name="admin_id" value="{{admin.admin_id}}" disabled>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4 mb-3">
+                <label for="validationDefault01">Name</label>
+                <input type="text" class="form-control" placeholder="name" name="name" maxlength="50" value="{{admin.name}}">
+              </div>
+              <div class="col-md-4 mb-3">
+                <label for="validationDefault02">Email Id</label>
+                <input type="email" class="form-control" placeholder="email id" name="email" maxlength="50" value="{{admin.email}}">
+              </div>
+              <div class="col-md-4 mb-3">
+                <label for="validationDefaultUsername">Mobile</label>
+                <input type="number" class="form-control" placeholder="mobile" name="mobile" value="{{admin.mobile}}" oninput="if(this.value.length > 10) this.value = this.value.slice(0, 10);" min="999999999" max="9999999999">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4 mb-3">
+                <label for="validationDefault01">Company Name</label>
+                <input type="text" class="form-control" placeholder="Company Name" name="company_name" maxlength="50" value="{{admin.company_name}}">
+              </div>
+              <div class="col-md-4 mb-3">
+                <label for="validationDefault02">Address</label>
+                <input type="text" class="form-control" placeholder="address" name="address" maxlength="50" value="{{admin.address}}">
+              </div>
+              <div class="col-md-4 mb-3">
+                <label for="validationDefaultUsername">Country</label>
+                <input type="text" class="form-control" placeholder="country" name="country" maxlength="50" value="{{admin.country}}">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4 mb-3">
+                <label for="validationDefault03">City</label>
+                <input type="text" class="form-control" placeholder="City" name="city" maxlength="50" value="{{admin.city}}">
+              </div>
+              <div class="col-md-4 mb-3">
+                <label for="validationDefault04">State</label>
+                <input type="text" class="form-control" placeholder="State" name="state" maxlength="50" value="{{admin.state}}">
+              </div>
+              <div class="col-md-4 mb-3">
+                <label for="validationDefault05">Zip</label>
+                <input type="number" class="form-control" placeholder="Zip" name="pincode" value="{{admin.pincode}}" oninput="if(this.value.length > 6) this.value = this.value.slice(0, 6);" min="99999" max="999999">
+              </div>
+            </div>
+          
+            <button class="btn btn-info rounded-pill px-4 mt-3" type="submit">
+              Submit form
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+{% endblock %}

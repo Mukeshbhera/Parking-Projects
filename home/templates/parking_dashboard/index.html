@@ -1,0 +1,351 @@
+{% extends 'parking_dashboard/base.html' %}  
+{% block content %}
+{% load static %}
+
+<body id="page-top">
+    <div id="wrapper">
+        <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0">
+            <div class="container-fluid d-flex flex-column p-0"><a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0">
+                    <div class="sidebar-brand-icon"><img class="" src="{% static 'logo/Parkgo-logo-white.png' %}" style="height: auto; width: 60%;"></div>
+                    {% comment %} <div class="sidebar-brand-text mx-3"><span>Parklay</span></div> {% endcomment %}
+                </a>
+                <hr class="sidebar-divider my-0">
+                <ul class="navbar-nav text-light" id="accordionSidebar">
+                    <li class="nav-item"><a class="nav-link active"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
+                    <li class="nav-item"></li>
+                    <li class="nav-item"></li>
+                    <li class="nav-item"></li>
+                    <li class="nav-item"></li>
+                </ul>
+                <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
+            </div>
+        </nav>
+        <div class="d-flex flex-column" id="content-wrapper">
+            <div id="content">
+                <nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
+                    <div class="container-fluid"><button class="btn btn-link d-md-none rounded-circle me-3" id="sidebarToggleTop" type="button"><i class="fas fa-bars"></i></button>
+                        <form class="d-none d-sm-inline-block me-auto ms-md-3 my-2 my-md-0 mw-100 navbar-search">
+                            <div class="input-group"></div>
+                        </form>
+                        <ul class="navbar-nav flex-nowrap ms-auto">
+                            <li class="nav-item dropdown d-sm-none no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#"><i class="fas fa-search"></i></a>
+                                <div class="dropdown-menu dropdown-menu-end p-3 animated--grow-in" aria-labelledby="searchDropdown">
+                                    <form class="me-auto navbar-search w-100">
+                                        <div class="input-group"><input class="bg-light form-control border-0 small" type="text" placeholder="Search for ...">
+                                            <div class="input-group-append"><button class="btn btn-primary py-0" type="button"><i class="fas fa-search"></i></button></div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </li>
+                            <li class="nav-item dropdown no-arrow mx-1">
+                                <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#"></a>
+                                    <div class="dropdown-menu dropdown-menu-end dropdown-list animated--grow-in">
+                                        <h6 class="dropdown-header">alerts center</h6><a class="dropdown-item d-flex align-items-center" href="#">
+                                            <div class="me-3">
+                                                <div class="bg-primary icon-circle"><i class="fas fa-file-alt text-white"></i></div>
+                                            </div>
+                                            <div><span class="small text-gray-500">December 12, 2019</span>
+                                                <p>A new monthly report is ready to download!</p>
+                                            </div>
+                                        </a><a class="dropdown-item d-flex align-items-center" href="#">
+                                            <div class="me-3">
+                                                <div class="bg-success icon-circle"><i class="fas fa-donate text-white"></i></div>
+                                            </div>
+                                            <div><span class="small text-gray-500">December 7, 2019</span>
+                                                <p>$290.29 has been deposited into your account!</p>
+                                            </div>
+                                        </a><a class="dropdown-item d-flex align-items-center" href="#">
+                                            <div class="me-3">
+                                                <div class="bg-warning icon-circle"><i class="fas fa-exclamation-triangle text-white"></i></div>
+                                            </div>
+                                            <div><span class="small text-gray-500">December 2, 2019</span>
+                                                <p>Spending Alert: We've noticed unusually high spending for your account.</p>
+                                            </div>
+                                        </a><a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="nav-item dropdown no-arrow mx-1">
+                                <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#"></a>
+                                    <div class="dropdown-menu dropdown-menu-end dropdown-list animated--grow-in">
+                                        <h6 class="dropdown-header">alerts center</h6><a class="dropdown-item d-flex align-items-center" href="#">
+                                            <div class="dropdown-list-image me-3"><img class="rounded-circle" src="{% static 'assets/img/avatars/avatar4.jpeg' %}">
+                                                <div class="bg-success status-indicator"></div>
+                                            </div>
+                                            <div class="fw-bold">
+                                                <div class="text-truncate"><span>Hi there! I am wondering if you can help me with a problem I've been having.</span></div>
+                                                <p class="small text-gray-500 mb-0">Emily Fowler - 58m</p>
+                                            </div>
+                                        </a><a class="dropdown-item d-flex align-items-center" href="#">
+                                            <div class="dropdown-list-image me-3"><img class="rounded-circle" src="{% static 'assets/img/avatars/avatar2.jpeg' %}">
+                                                <div class="status-indicator"></div>
+                                            </div>
+                                            <div class="fw-bold">
+                                                <div class="text-truncate"><span>I have the photos that you ordered last month!</span></div>
+                                                <p class="small text-gray-500 mb-0">Jae Chun - 1d</p>
+                                            </div>
+                                        </a><a class="dropdown-item d-flex align-items-center" href="#">
+                                            <div class="dropdown-list-image me-3"><img class="rounded-circle" src="{% static 'assets/img/avatars/avatar3.jpeg' %}">
+                                                <div class="bg-warning status-indicator"></div>
+                                            </div>
+                                            <div class="fw-bold">
+                                                <div class="text-truncate"><span>Last month's report looks great, I am very happy with the progress so far, keep up the good work!</span></div>
+                                                <p class="small text-gray-500 mb-0">Morgan Alvarez - 2d</p>
+                                            </div>
+                                        </a><a class="dropdown-item d-flex align-items-center" href="#">
+                                            <div class="dropdown-list-image me-3"><img class="rounded-circle" src="{% static 'assets/img/avatars/avatar5.jpeg' %}">
+                                                <div class="bg-success status-indicator"></div>
+                                            </div>
+                                            <div class="fw-bold">
+                                                <div class="text-truncate"><span>Am I a good boy? The reason I ask is because someone told me that people say this to all dogs, even if they aren't good...</span></div>
+                                                <p class="small text-gray-500 mb-0">Chicken the Dog · 2w</p>
+                                            </div>
+                                        </a><a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
+                                    </div>
+                                </div>
+                                <div class="shadow dropdown-list dropdown-menu dropdown-menu-end" aria-labelledby="alertsDropdown"></div>
+                            </li>
+                            <li class="nav-item dropdown no-arrow">
+                                <div class="nav-item dropdown no-arrow">
+                                    <a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#">
+                                        <span class="d-none d-lg-inline me-2 text-gray-600 small">{{user.email}}</span>
+                                        <img class="border rounded-circle img-profile" src="{% static 'assets/img/avatars/avatar1.jpeg' %}"></a>
+                                    <div class="dropdown-menu shadow dropdown-menu-end animated--grow-in">
+                                        <!-- <a class="dropdown-item" href="profile.html">
+                                            <i class="fas fa-user fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Profile</a> -->
+                                        <!-- <div class="dropdown-divider"></div> -->
+                                        <a class="dropdown-item" href="{% url 'logout' %}">
+                                            <i class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Logout</a>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <div style="margin-top: 0px;">
+                                <input class="form-control mt-3 mb-3" id="myInput" onkeyup='searchTable()' type="text" placeholder="Search..">
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div style="text-align: right;">
+                                <div class="modal fade" role="dialog" tabindex="-1" id="modal-1">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h4 class="modal-title" style="font-size: 17px;">Add Admin</h4><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <form method="POST" action="{% url 'addsuperadmin' %}">
+                                            {% csrf_token %}
+                                            <div class="modal-body" style="text-align: left;">
+                                                <div class="row" style="margin-top: 10px;">
+                                                    <div class="col"><label class="form-label">Email</label>
+                                                        <input type="email" name="email" placeholder="Email id" style="width: 100%;" maxlength="50" required>
+                                                    </div>
+                                                    <div class="col"><label class="form-label">Password</label>
+                                                        <input type="password" name="password" placeholder="XXXXXXXXXXXXXX" style="width: 100%;" maxlength="50" required>
+                                                    </div>
+                                                </div>
+                                                <div class="row" style="margin-top: 10px;">
+                                                    <div class="col"><label class="form-label">Name</label>
+                                                        <input type="text" name="name" placeholder="Name" style="width: 100%;" maxlength="50" required>
+                                                    </div>
+                                                    <div class="col"><label class="form-label">Mobile No</label>
+                                                        <input type="number" name="mobile" placeholder="Mobile No" style="width: 100%;" oninput="if(this.value.length > 10) this.value = this.value.slice(0, 10);" min="999999999" max="9999999999" required>
+                                                    </div>
+                                                </div>
+                                                <div class="row" style="margin-top: 10px;">
+                                                    <!-- <div class="col"><label class="form-label">Email</label>
+                                                        <input type="text" name="email" placeholder="Email" style="width: 100%;">
+                                                    </div> -->
+                                                    <div class="col"><label class="form-label">Company Name</label>
+                                                        <input type="text" name="company_name" placeholder="Company Name" style="width: 100%;" maxlength="50" required>
+                                                    </div>
+                                                    <div class="col"><label class="form-label">Address</label>
+                                                        <input type="text" name="address" placeholder="Address" style="width: 100%;" maxlength="50" required>
+                                                    </div>
+                                                </div>
+                                                <div class="row" style="margin-top: 10px;">
+                                                    <div class="col"><label class="form-label">City</label>
+                                                        <input type="text" name="city" placeholder="City" style="width: 100%;" maxlength="50" required>
+                                                    </div>
+                                                    <div class="col"><label class="form-label">Pincode</label>
+                                                        <input type="number" name="pincode" placeholder="Pincode" style="width: 100%;" oninput="if(this.value.length > 6) this.value = this.value.slice(0, 6);" min="99999" max="999999" required>
+                                                    </div>
+                                                </div>
+                                                <div class="row" style="margin-top: 10px;">
+                                                    <div class="col"><label class="form-label">State</label>
+                                                        <input type="text" name="state" placeholder="State" style="width: 100%;" maxlength="50" required>
+                                                    </div>
+                                                    <div class="col"><label class="form-label">Country</label>
+                                                        <input type="text" name="country" placeholder="Country" style="width: 100%;" maxlength="50" required>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button class="btn btn-primary" name="submit" type="submit">Add Admin</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                        </div>
+                                    </div>
+                                </div><button class="btn btn-primary" type="button" style="margin: 0px;margin-left: 20px;" data-bs-target="#modal-1" data-bs-toggle="modal">Add Admin</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6"></div>
+                        <div class="col-md-6"></div>
+                    </div>
+                </div>
+                <i class='bx bx-check-shield'></i>
+                <div class="container">
+                    <div>
+                        <div class="table-responsive" style="margin-top: 30px;">
+                        
+                        {% if messages %}
+                            {% for message in messages %}
+                                <div class="alert alert-success">
+                                    {{ message }}
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>SR. NO</th>
+                                        <th>Name</th>
+                                        <th>Email id</th>
+                                        <th>Mobile No</th>
+                                        <th>Admin id</th>
+                                        <th>Status</th>
+                                        <th>Created Date</th>
+                                        <th>Edit Now</th>
+                                    </tr>
+                                </thead>
+                                <tbody id='myTable'>
+                                    {% for userdata in admin %}
+                                    <tr>
+                                        <td>{{ forloop.counter}}</td>
+                                        <td>{{userdata.name}}</td>
+                                        <td>{{userdata.email}}</td>
+                                        <td>{{userdata.mobile}}</td>
+                                        <td>{{userdata.admin_id}}</td>
+                                        <td>{{userdata.status}}</td>
+
+                                        <td>{{userdata.created_on}}</td>
+                                        <td><a class="btn btn-primary btn-sm" data-toggle="modal" data-target="#ModalLoginForm{{userdata.id}}" href="#ModalLoginForm{{userdata.id}}">Edit</a></td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="bs-component"></div>
+                        <div class="bs-component"></div>
+                    </div>
+                </div>
+            </div>
+            <footer class="bg-white sticky-footer">
+                <div class="container my-auto">
+                    {% comment %} <div class="text-center my-auto copyright"><span>Copyright © Brand 2023</span></div> {% endcomment %}
+                </div>
+            </footer>
+        </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+    </div>
+    
+{% for userdata in admin %}
+<div id="ModalLoginForm{{userdata.id}}" class="modal fade">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="top: 50px;">
+            <div class="modal-header">
+                <h3 class="modal-title">Edit Now</h3>
+            </div>
+            <div class="modal-body">
+                <form role="form" method="POST" action="{% url 'editadmin' userdata.id %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="_token" value="">
+                    <div class="row" style="margin-top: 10px;">
+                        <div class="col"><label  class="control-label">Name</label>
+                            <input type="text" class="form-control input-lg" name="name" maxlength="50" value="{{userdata.name}}">
+                        </div>
+                        <div class="col"><label  class="control-label">E-Mail Address</label>
+                            <input type="email" class="form-control input-lg" name="email" maxlength="70" value="{{userdata.email}}">
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 10px;">
+                        <div class="col"><label  class="control-label">Mobile</label>
+                            <input type="number" class="form-control input-lg" name="mobile" value="{{userdata.mobile}}" oninput="if(this.value.length > 10) this.value = this.value.slice(0, 10);" min="999999999" max="9999999999">
+                        </div>
+                        <div class="col"><label class="control-label">Company Name</label>
+                            <input type="text" class="form-control input-lg" name="company_name" maxlength="70" value="{{userdata.company_name}}">
+                        </div>
+                    </div>
+                    
+                    <div class="row" style="margin-top: 10px;">
+                        <div class="col"><label class="control-label">Address</label>
+                            <input type="text" class="form-control input-lg" name="address" maxlength="70" value="{{userdata.address}}">
+                        </div>
+                        <div class="col"><label class="control-label">City</label>
+                            <input type="text" class="form-control input-lg" name="city" maxlength="50" value="{{userdata.city}}">
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 10px;">
+                        <div class="col"><label class="control-label">Pincode</label>
+                            <input type="number" class="form-control input-lg" name="pincode" value="{{userdata.pincode}}" oninput="if(this.value.length > 6) this.value = this.value.slice(0, 6);" min="99999" max="999999">
+                        </div>
+                        <div class="col"><label class="control-label">State</label>
+                            <input type="text" class="form-control input-lg" name="state" maxlength="50" value="{{userdata.state}}">
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 10px;">
+                        <div class="col"><label class="control-label">Country</label>
+                            <input type="text" class="form-control input-lg" name="country" maxlength="50" value="{{userdata.country}}">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <div>
+                            <button type="submit" class="btn btn-primary btn-sm mt-3">
+                                Edit Now
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+{% endfor %}
+
+
+    <script>
+        function searchTable() {
+            var input, filter, found, table, tr, td, i, j;
+            input = document.getElementById("myInput");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("myTable");
+            tr = table.getElementsByTagName("tr");
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td");
+                for (j = 0; j < td.length; j++) {
+                    if (td[j].innerHTML.toUpperCase().indexOf(filter) > -1) {
+                        found = true;
+                    }
+                }
+                if (found) {
+                    tr[i].style.display = "";
+                    found = false;
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+        </script>
+
+{% endblock %}

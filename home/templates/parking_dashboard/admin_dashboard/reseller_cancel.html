@@ -1,0 +1,254 @@
+{% extends 'parking_dashboard/admin_dashboard/base.html' %}  
+{% block content %}
+{% load static %}
+
+<div class="container-fluid note-has-grid">
+  <div class="row">
+    <div class="d-flex">
+      <div class="col-md-6 col-xl-6">
+          <div style="margin-top: 0px;">
+              <input class="form-control mt-3 mb-3" id="myInput" onkeyup='searchTable()' type="text" placeholder="Search..">
+          </div>
+      </div>
+      <div class="col">
+          <div style="text-align: right;">
+              <div class="modal fade" role="dialog" tabindex="-1" id="modal-1">
+                  <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                          <div class="modal-header">
+                              <h4 class="modal-title" style="font-size: 17px;">Add Reseller</h4><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <form method="POST" action="{% url 'addreseller' %}">
+                          {% csrf_token %}
+                          <div class="modal-body" style="text-align: left;">
+                              <div class="row" style="margin-top: 10px;">
+                                  <div class="col"><label class="form-label">Email</label>
+                                      <input type="email" name="email" placeholder="Email id" style="width: 100%;" maxlength="50" required>
+                                  </div>
+                                  <div class="col"><label class="form-label">Password</label>
+                                      <input type="password" name="password" placeholder="XXXXXXXXXXXX" style="width: 100%;" maxlength="50" required> 
+                                  </div>
+                              </div>
+                            <div class="row" style="margin-top: 10px;">
+                                <div class="col"><label class="form-label">Name</label>
+                                    <input type="text" name="name" placeholder="Name" style="width: 100%;" maxlength="50" required>
+                                </div>
+                                <div class="col"><label class="form-label">Mobile No</label>
+                                    <input type="number" name="mobile" placeholder="Mobile No" style="width: 100%;" oninput="if(this.value.length > 10) this.value = this.value.slice(0, 10);" min="999999999" max="9999999999" required>
+                                </div>
+                            </div>
+                            {% comment %} <div class="row" style="margin-top: 10px;"> {% endcomment %}
+                                <!-- <div class="col"><label class="form-label">Email</label>
+                                    <input type="text" name="email" placeholder="Email" style="width: 100%;">
+                                </div> -->
+                                
+                            {% comment %} </div> {% endcomment %}
+                            <div class="row" style="margin-top: 10px;">
+                                <div class="col"><label class="form-label">Company Name</label>
+                                    <input type="text" name="company_name" placeholder="Company Name" style="width: 100%;" maxlength="50" required>
+                                </div>
+                                <div class="col"><label class="form-label">Address</label>
+                                    <input type="text" name="address" placeholder="Address" style="width: 100%;" maxlength="50" required>
+                                </div>
+                                
+                            </div>
+                            <div class="row" style="margin-top: 10px;">
+                                <div class="col"><label class="form-label">City</label>
+                                    <input type="text" name="city" placeholder="City" style="width: 100%;" maxlength="50" required>
+                                </div>
+                                <div class="col"><label class="form-label">Pincode</label>
+                                    <input type="number" name="pincode" placeholder="Pincode" style="width: 100%;" oninput="if(this.value.length > 6) this.value = this.value.slice(0, 6);" min="99999" max="999999" required> 
+                                </div>
+                            </div>
+                            <div class="row" style="margin-top: 10px;">
+                                <div class="col"><label class="form-label">State</label>
+                                    <input type="text" name="state" placeholder="State" style="width: 100%;" maxlength="50" required>
+                                </div>
+                                <div class="col"><label class="form-label">Country</label>
+                                    <input type="text" name="country" placeholder="Country" style="width: 100%;" maxlength="50" required>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-primary" name="submit" type="submit">Add Reseller</button>
+                            </div>
+                          </div>
+                      </form>
+                      </div>
+                  </div>
+              </div><button class="btn btn-primary" type="button" style="margin: 0px;margin-left: 20px;" data-bs-target="#modal-1" data-bs-toggle="modal">Add Reseller</button>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+        
+      <!-- table data row -->
+
+            <div class="card">
+              <div class="card-body">
+                <div class="mb-2">
+                  <h5 class="mb-3">Reseller Cancel</h5>
+                </div>
+
+                <div class="table-responsive">
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-success">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+                  <table id="file_export" class="table border table-striped table-bordered display text-nowrap">
+                    <thead>
+                      <!-- start row -->
+                      <tr>
+                        <th>SR. NO</th>
+                        <th>Name</th>
+                        <th>Email Id</th>
+                        <th>Reseller Id</th>
+                        <th>Mobile</th>
+                        <th>Status</th>
+                        <th>Created Date</th>
+                        <th>Update_Status</th>
+                        <th>Edit</th>
+                      </tr>
+                      <!-- end row -->
+                    </thead>
+                    <tbody>
+                      {% for reseller in reseller_cancels %}
+                      <!-- start row -->
+                      <tr>
+                        <td>{{ forloop.counter}}</td>
+                        <td>{{reseller.name}}</td>
+                        <td>{{reseller.email}}</td>
+                        <td>{{reseller.reseller_id}}</td>
+                        <td>{{reseller.mobile}}</td>
+                        <td>{{reseller.status}}</td>
+                        <td>{{reseller.created_on}}</td>
+                        <td>
+                          <form action="{% url 'reseller_update_status' %}" method="post">
+                              {% csrf_token %}
+                          <input type="hidden" name="reseller_id" value="{{ reseller.id }}">
+                          <div class="dropdown">
+                              
+                              <button class="btn btn-primary dropdown-toggle" aria-expanded="false" data-bs-toggle="dropdown" type="button">{{ reseller.status }}&nbsp;</button>
+                              <div class="dropdown-menu">
+                                  <button class="dropdown-item" type="submit" name="new_status" value="Pending">Pending</button>
+                                  <button class="dropdown-item" type="submit" name="new_status" value="Approved">Approved</button>
+                                  <button class="dropdown-item" type="submit" name="new_status" value="Cancel">Cancel</button>
+                              </div>
+                          </div>
+                      </form>
+                      </td>
+                      <td><a class="btn btn-primary btn-sm" data-toggle="modal" data-target="#ModalLoginForm{{reseller.id}}" href="#ModalLoginForm{{reseller.id}}">Edit</a></td>
+                      </tr>
+                      <!-- end row -->
+                      {% endfor %}
+                     
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <!-- ---------------------
+                          end File export
+                      ---------------- -->
+          </div>
+       
+
+  </div>
+  {% for reseller in reseller_cancels %}
+  <div id="ModalLoginForm{{reseller.id}}" class="modal fade">
+      <div class="modal-dialog" role="document">
+          <div class="modal-content" style="top: 50px;">
+              <div class="modal-header">
+                  <h3 class="modal-title">Edit Now</h3>
+              </div>
+              <div class="modal-body">
+                  <form role="form" method="POST" action="{% url 'reselleredit' reseller.id %}">
+                      {% csrf_token %}
+                      <input type="hidden" name="_token" value="">
+                      <div class="row" style="margin-top: 10px;">
+                          <div class="col"><label  class="control-label">Name</label>
+                              <input type="text" class="form-control input-lg" name="name" maxlength="50" value="{{reseller.name}}">
+                          </div>
+                          <div class="col"><label  class="control-label">E-Mail Address</label>
+                              <input type="email" class="form-control input-lg" name="email" maxlength="70" value="{{reseller.email}}">
+                          </div>
+                      </div>
+                      <div class="row" style="margin-top: 10px;">
+                          <div class="col"><label  class="control-label">Mobile</label>
+                              <input type="number" class="form-control input-lg" name="mobile" value="{{reseller.mobile}}" oninput="if(this.value.length > 10) this.value = this.value.slice(0, 10);" min="999999999" max="9999999999">
+                          </div>
+                          <div class="col"><label class="control-label">Company Name</label>
+                              <input type="text" class="form-control input-lg" name="company_name" maxlength="70" value="{{reseller.company_name}}">
+                          </div>
+                      </div>
+                      
+                      <div class="row" style="margin-top: 10px;">
+                          <div class="col"><label class="control-label">Address</label>
+                              <input type="text" class="form-control input-lg" name="address" maxlength="70" value="{{reseller.address}}">
+                          </div>
+                          <div class="col"><label class="control-label">City</label>
+                              <input type="text" class="form-control input-lg" name="city" maxlength="50" value="{{reseller.city}}">
+                          </div>
+                      </div>
+                      <div class="row" style="margin-top: 10px;">
+                          <div class="col"><label class="control-label">Pincode</label>
+                              <input type="number" class="form-control input-lg" name="pincode" value="{{reseller.pincode}}" oninput="if(this.value.length > 6) this.value = this.value.slice(0, 6);" min="99999" max="999999">
+                          </div>
+                          <div class="col"><label class="control-label">State</label>
+                              <input type="text" class="form-control input-lg" name="state" maxlength="50" value="{{reseller.state}}">
+                          </div>
+                      </div>
+                      <div class="row" style="margin-top: 10px;">
+                          <div class="col"><label class="control-label">Country</label>
+                              <input type="text" class="form-control input-lg" name="country" maxlength="50" value="{{reseller.country}}">
+                          </div>
+                      </div>
+                      
+                      <div class="form-group">
+                          <div>
+                              <button type="submit" class="btn btn-primary btn-sm mt-3">
+                                  Edit Now
+                              </button>
+                          </div>
+                      </div>
+                  </form>
+              </div>
+          </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+  
+  {% endfor %}
+  <script>
+    function searchTable() {
+        var input, filter, found, table, tr, td, i, j;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("myTable");
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td");
+            for (j = 0; j < td.length; j++) {
+                if (td[j].innerHTML.toUpperCase().indexOf(filter) > -1) {
+                    found = true;
+                }
+            }
+            if (found) {
+                tr[i].style.display = "";
+                found = false;
+            } else {
+                tr[i].style.display = "none";
+            }
+        }
+    }
+    </script>
+
+
+
+  {% endblock %}

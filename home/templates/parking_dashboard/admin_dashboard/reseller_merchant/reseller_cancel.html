@@ -1,0 +1,432 @@
+{% extends 'parking_dashboard/admin_dashboard/reseller_merchant/base.html' %}  
+{% block content %}
+{% load static %}
+
+<div class="container-fluid note-has-grid">
+    <div class="row">
+    <div class="d-flex">
+        <div class="col-md-6 col-xl-6">
+            <div style="margin-top: 0px;">
+                <input class="form-control mt-3 mb-3" id="myInput" onkeyup='searchTable()' type="text" placeholder="Search..">
+            </div>
+        </div>
+        <div class="col">
+            <div style="text-align: right;">
+                <div class="modal fade" role="dialog" tabindex="-1" id="modal-1">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title" style="font-size: 17px;">Add Merchant</h4><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <form method="POST" action="{% url 'addresellermerchant' %}" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="modal-body" style="text-align: left;">
+                                <div class="row" style="margin-top: 10px;">
+                                    <div class="col"><label class="form-label">Email</label>
+                                        <input type="email" name="email" placeholder="Email id" style="width: 100%;" maxlength="50" required>
+                                    </div>
+                                    <div class="col"><label class="form-label">Password</label>
+                                        <input type="password" name="password" placeholder="XXXXXXXXXXXXXXX" style="width: 100%;" maxlength="50" required>
+                                    </div>
+                                </div>
+                                <div class="row" style="margin-top: 10px;">
+                                    <div class="col"><label class="form-label">Name</label>
+                                        <input type="text" name="name" placeholder="Name" style="width: 100%;" maxlength="50" required>
+                                    </div>
+                                    <div class="col"><label class="form-label">Mobile No</label>
+                                        <input type="number" name="mobile" placeholder="Mobile No" style="width: 100%;" oninput="if(this.value.length > 10) this.value = this.value.slice(0, 10);" min="999999999" max="9999999999" required>
+                                    </div>
+                                </div>
+                                <div class="row" style="margin-top: 10px;">
+                                    <div class="col"><label class="form-label">Company Name</label>
+                                        <input type="text" name="company_name" placeholder="Company Name" style="width: 100%;" maxlength="50" required>
+                                    </div>
+                                    <div class="col"><label class="form-label">Address</label>
+                                        <input type="text" name="address" placeholder="Address" style="width: 100%;" maxlength="50" required>
+                                    </div>
+                                </div>
+                                <div class="row" style="margin-top: 10px;">
+                                    <div class="col"><label class="form-label">City</label>
+                                        <input type="text" name="city" placeholder="City" style="width: 100%;" maxlength="50" required>
+                                    </div>
+                                    <div class="col"><label class="form-label">Pincode</label>
+                                        <input type="number" name="pincode" placeholder="Pincode" style="width: 100%;" oninput="if(this.value.length > 6) this.value = this.value.slice(0, 6);" min="99999" max="999999" required>
+                                    </div>
+                                </div>
+                                <div class="row" style="margin-top: 10px;">
+                                    <div class="col"><label class="form-label">State</label>
+                                        <input type="text" name="state" placeholder="State" style="width: 100%;" maxlength="50" required>
+                                    </div>
+                                    <div class="col"><label class="form-label">Country</label>
+                                        <input type="text" name="country" placeholder="Country" style="width: 100%;" maxlength="50" required>
+                                    </div>
+                                </div>
+                                <div class="row" style="margin-top: 10px;">
+                                    <div class="col"><label class="form-label">Bike Price</label>
+                                        <input type="number" name="bike_price" placeholder="Bike Price" style="width: 100%;" min="0" onKeyPress="if(this.value.length==3) return false;" required>
+                                    </div>
+                                    <div class="col"><label class="form-label">Auto Price</label>
+                                        <input type="number" name="auto_price" placeholder="Auto Price" style="width: 100%;" min="0" onKeyPress="if(this.value.length==3) return false;" required>
+                                    </div>
+                                    <div class="col"><label class="form-label">Car Price</label>
+                                        <input type="number" name="car_price" placeholder="Car Price" style="width: 100%;" min="0" onKeyPress="if(this.value.length==3) return false;" required>
+                                    </div>
+                                </div>
+                                <div class="row" style="margin-top: 10px;">
+                                    <div class="col"><label class="form-label">Pickup Price</label>
+                                        <input type="number" name="pickup_price" placeholder="Pickup Price" style="width: 100%;" min="0" onKeyPress="if(this.value.length==3) return false;" required>
+                                    </div>
+                                    <div class="col"><label class="form-label">Ev Price</label>
+                                        <input type="number" name="ev_price" placeholder="Ev Price" style="width: 100%;" min="0" onKeyPress="if(this.value.length==3) return false;" required>
+                                    </div>
+                                    <div class="col"><label class="form-label">Truck Price</label>
+                                        <input type="number" name="truck_price" placeholder="Truck Price" style="width: 100%;" min="0" onKeyPress="if(this.value.length==3) return false;" required>
+                                    </div>
+                                </div>
+                                <div class="row" style="margin-top: 10px;">
+                                    <div class="col"><label class="form-label">Custom Hours</label>
+                                        <input type="number" name="custom_hours" placeholder="Custom Hours" style="width: 100%;" min="1" onKeyPress="if(this.value.length==3) return false;" required>
+                                    </div>
+                                    <div class="col"><label class="form-label">Profile Image</label>
+                                        <input type="file" name="profile_img" placeholder="Profile Image" style="width: 100%;" required>
+                                    </div>
+                                </div>
+                                <div class="row" style="margin-top: 10px;">
+                                    <div class="col"><label class="form-label">Description</label>
+                                        <input type="text" name="description" placeholder="description" style="width: 100%;" maxlength="50" required>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button class="btn btn-primary" name="submit" type="submit">Add Merchant</button>
+                                </div>
+                            </div>
+                        </form>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn btn-primary" type="button" style="margin: 0px;margin-left: 20px;" data-bs-target="#modal-1" data-bs-toggle="modal">Add Merchant</button>
+                <button class="btn btn-primary" type="button" style="margin: 0px; margin-left: 20px;" data-bs-target="#modal-2" data-bs-toggle="modal">Add Multi Ress Merchant</button>
+                
+            </div>
+        </div>
+    </div>
+    </div>
+</div>  
+
+
+
+
+        
+      <!-- table data row -->
+
+            <div class="card">
+              <div class="card-body">
+                <div class="mb-2">
+                  <h5 class="mb-3">Reseller_Merchant Cancel</h5>
+                </div>
+
+                <div class="table-responsive">
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-success">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+                  <table id="file_export" class="table border table-striped table-bordered display text-nowrap">
+                    <thead>
+                      <!-- start row -->
+                      <tr>
+                        <th>SR. NO</th>
+                        <th>Name</th>
+                        <th>Email Id</th>
+                        <th>Reseller_Merchant Id</th>
+                        <th>Mobile</th>
+                        <th>Status</th>
+                        <th>Created Date</th>
+                        <th>Update_Status</th>
+                        <th>Edit</th>
+                      </tr>
+                      <!-- end row -->
+                    </thead>
+                    <tbody>
+                      {% for reseller_merchant in reseller_merchant_cancel %}
+                      <!-- start row -->
+                      <tr>
+                        <td>{{ forloop.counter}}</td>
+                        <td>{{reseller_merchant.name}}</td>
+                        <td>{{reseller_merchant.email}}</td>
+                        <td>{{reseller_merchant.merchant_id}}</td>
+                        <td>{{reseller_merchant.mobile}}</td>
+                        <td>{{reseller_merchant.status}}</td>
+                        <td>{{reseller_merchant.created_on}}</td>
+                        <td>
+                          <form action="{% url 'reseller_merchant_status' %}" method="post">
+                              {% csrf_token %}
+                          <input type="hidden" name="reseller_merchant" value="{{ reseller_merchant.id }}">
+                          <div class="dropdown">
+                              
+                              <button class="btn btn-primary dropdown-toggle" aria-expanded="false" data-bs-toggle="dropdown" type="button">{{ reseller_merchant.status }}&nbsp;</button>
+                              <div class="dropdown-menu">
+                                  <button class="dropdown-item" type="submit" name="new_status" value="Pending">Pending</button>
+                                  <button class="dropdown-item" type="submit" name="new_status" value="Approved">Approved</button>
+                                  <button class="dropdown-item" type="submit" name="new_status" value="Cancel">Cancel</button>
+                              </div>
+                          </div>
+                      </form>
+                      </td>
+                      <td><a class="btn btn-primary btn-sm" data-toggle="modal" data-target="#ModalLoginForm{{reseller_merchant.id}}" href="#ModalLoginForm{{reseller_merchant.id}}">Edit</a></td>
+                      </tr>
+                      <!-- end row -->
+                      {% endfor %}
+                     
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <!-- ---------------------
+                          end File export
+                      ---------------- -->
+          </div>
+       
+
+  </div>
+
+{% comment %} multi reseller_merchant {% endcomment %}
+<div class="container-fluid note-has-grid">
+    <div class="row">
+        <div class="d-flex">
+        <div class="col">
+            <div style="text-align: right;">
+            <div class="modal fade" role="dialog" tabindex="-2" id="modal-2">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" style="font-size: 17px;">Add Multi Ress Merchant</h4><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            
+                        </div>
+                        <form method="POST" action="{% url 'addmerchan' %}" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="modal-body" style="text-align: left;">
+                            <div class="row" style="margin-top: 10px;">
+                                <div class="col">
+                                    <label class="form-label">Select Merchants</label>
+                                    <select name="selected_merchants" class="form-control" multiple>
+                                        {% for merchant in reseller_merchant_cancel %}
+                                            <option value="{{ merchant.email }}">{{ merchant.email }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div> 
+                            </div>
+                            <div class="row" style="margin-top: 10px;">
+                                <div class="col"><label class="form-label">Email</label>
+                                    <input type="email" name="email" placeholder="Email id" style="width: 100%;" maxlength="50" required>
+                                </div>
+                                <div class="col"><label class="form-label">Password</label>
+                                    <input type="password" name="password" placeholder="XXXXXXXXXXXXXXX" style="width: 100%;" maxlength="50" required>
+                                </div>
+                            </div>
+                            <div class="row" style="margin-top: 10px;">
+                                <div class="col"><label class="form-label">Name</label>
+                                    <input type="text" name="name" placeholder="Name" style="width: 100%;" maxlength="50" required>
+                                </div>
+                                <div class="col"><label class="form-label">Mobile No</label>
+                                    <input type="number" name="mobile" placeholder="Mobile No" style="width: 100%;" oninput="if(this.value.length > 10) this.value = this.value.slice(0, 10);" min="999999999" max="9999999999" required>
+                                </div>
+                            </div>
+                            <div class="row" style="margin-top: 10px;">
+                                <div class="col"><label class="form-label">Company Name</label>
+                                    <input type="text" name="company_name" placeholder="Company Name" style="width: 100%;" maxlength="50" required>
+                                </div>
+                                <div class="col"><label class="form-label">Address</label>
+                                    <input type="text" name="address" placeholder="Address" style="width: 100%;" maxlength="50" required>
+                                </div>
+                            </div>
+                            <div class="row" style="margin-top: 10px;">
+                                <div class="col"><label class="form-label">City</label>
+                                    <input type="text" name="city" placeholder="City" style="width: 100%;" maxlength="50" required>
+                                </div>
+                                <div class="col"><label class="form-label">Pincode</label>
+                                    <input type="number" name="pincode" placeholder="Pincode" style="width: 100%;" oninput="if(this.value.length > 6) this.value = this.value.slice(0, 6);" min="99999" max="999999" required>
+                                </div>
+                            </div>
+                            <div class="row" style="margin-top: 10px;">
+                                <div class="col"><label class="form-label">State</label>
+                                    <input type="text" name="state" placeholder="State" style="width: 100%;" maxlength="50"required>
+                                </div>
+                                <div class="col"><label class="form-label">Country</label>
+                                    <input type="text" name="country" placeholder="Country" style="width: 100%;" maxlength="50" required>
+                                </div>
+                            </div>
+                            <div class="row" style="margin-top: 10px;">
+                                <div class="col"><label class="form-label">Bike Price</label>
+                                    <input type="number" name="bike_price" placeholder="Bike Price" style="width: 100%;" min="0" onKeyPress="if(this.value.length==3) return false;" required>
+                                </div>
+                                <div class="col"><label class="form-label">Auto Price</label>
+                                    <input type="number" name="auto_price" placeholder="Auto Price" style="width: 100%;" min="0" onKeyPress="if(this.value.length==3) return false;" required>
+                                </div>
+                                <div class="col"><label class="form-label">Car Price</label>
+                                    <input type="number" name="car_price" placeholder="Car Price" style="width: 100%;" min="0" onKeyPress="if(this.value.length==3) return false;" required>
+                                </div>
+                            </div>
+                            <div class="row" style="margin-top: 10px;">
+                                <div class="col"><label class="form-label">Pickup Price</label>
+                                    <input type="number" name="pickup_price" placeholder="Pickup Price" style="width: 100%;" min="0" onKeyPress="if(this.value.length==3) return false;" required>
+                                </div>
+                                <div class="col"><label class="form-label">Ev Price</label>
+                                    <input type="number" name="ev_price" placeholder="Ev Price" style="width: 100%;" min="0" onKeyPress="if(this.value.length==3) return false;" required>
+                                </div>
+                                <div class="col"><label class="form-label">Truck Price</label>
+                                    <input type="number" name="truck_price" placeholder="Truck Price" style="width: 100%;" min="0" onKeyPress="if(this.value.length==3) return false;" required>
+                                </div>
+                            </div>
+                            <div class="row" style="margin-top: 10px;">
+                                <div class="col"><label class="form-label">Custom Hours</label>
+                                    <input type="number" name="custom_hours" placeholder="Custom Hours" style="width: 100%;"  min="1" onKeyPress="if(this.value.length==3) return false;" required>
+                                </div>
+                                <div class="col"><label class="form-label">Profile Image</label>
+                                    <input type="file" name="profile_img" placeholder="Profile Image" style="width: 100%;" required>
+                                </div>
+                            </div>
+                            <div class="row" style="margin-top: 10px;">
+                                <div class="col"><label class="form-label">Description</label>
+                                    <input type="text" name="description" placeholder="description" style="width: 100%;" maxlength="50" required>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-primary" name="submit" type="submit">Add Multi Ress Merchant</button>
+                            </div>
+                        </div>
+                    </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</div>
+</div> 
+
+
+  {% for reseller_merchant in reseller_merchant_cancel %}
+<div id="ModalLoginForm{{reseller_merchant.id}}" class="modal fade">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="top: 50px;">
+            <div class="modal-header">
+                <h3 class="modal-title">Edit Now</h3>
+            </div>
+            <div class="modal-body">
+                <form role="form" method="POST" action="{% url 'resellermeredit' reseller_merchant.id %}" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <input type="hidden" name="_token" value="">
+                    <div class="row" style="margin-top: 10px;">
+                        <div class="col"><label  class="control-label">E-Mail Address</label>
+                            <input type="email" class="form-control input-lg" name="email" maxlength="70" value="{{reseller_merchant.email}}">
+                        </div>
+                        <div class="col"><label  class="control-label">Name</label>
+                            <input type="text" class="form-control input-lg" name="name" maxlength="50" value="{{reseller_merchant.name}}">
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 10px;">
+                        <div class="col"><label  class="control-label">Mobile</label>
+                            <input type="number" class="form-control input-lg" name="mobile" value="{{reseller_merchant.mobile}}" oninput="if(this.value.length > 10) this.value = this.value.slice(0, 10);" min="999999999" max="9999999999">
+                        </div>
+                        <div class="col"><label class="control-label">Company Name</label>
+                            <input type="text" class="form-control input-lg" name="company_name" maxlength="70" value="{{reseller_merchant.company_name}}">
+                        </div>
+                    </div>
+                    
+                    <div class="row" style="margin-top: 10px;">
+                        <div class="col"><label class="control-label">Address</label>
+                            <input type="text" class="form-control input-lg" name="address" maxlength="70" value="{{reseller_merchant.address}}">
+                        </div>
+                        <div class="col"><label class="control-label">City</label>
+                            <input type="text" class="form-control input-lg" name="city" maxlength="50" value="{{reseller_merchant.city}}">
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 10px;">
+                        <div class="col"><label class="control-label">Pincode</label>
+                            <input type="number" class="form-control input-lg" name="pincode" value="{{reseller_merchant.pincode}}" oninput="if(this.value.length > 6) this.value = this.value.slice(0, 6);" min="99999" max="999999">
+                        </div>
+                        <div class="col"><label class="control-label">State</label>
+                            <input type="text" class="form-control input-lg" name="state" maxlength="50" value="{{reseller_merchant.state}}">
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 10px;">
+                        <div class="col"><label class="control-label">Country</label>
+                            <input type="text" class="form-control input-lg" name="country" maxlength="50" value="{{reseller_merchant.country}}">
+                        </div>
+                        <div class="col"><label class="control-label">Profile Images</label>
+                            <input type="file" src="{{ merchant.profile_img.url }}" class="form-control" name="profile_img" >
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 10px;">
+                        <div class="col"><label class="control-label">Bike Price</label>
+                            <input type="number" class="form-control input-lg" name="bike_price" value="{{reseller_merchant.bike_price}}" min="0" onKeyPress="if(this.value.length==3) return false;">
+                        </div>
+                        <div class="col"><label class="control-label">Auto Price</label>
+                            <input type="number" class="form-control input-lg" name="auto_price" value="{{reseller_merchant.auto_price}}" min="0" onKeyPress="if(this.value.length==3) return false;">
+                        </div>
+                        <div class="col"><label class="control-label">Car Price</label>
+                            <input type="number" class="form-control input-lg" name="car_price" value="{{reseller_merchant.car_price}}" min="0" onKeyPress="if(this.value.length==3) return false;">
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 10px;">
+                        <div class="col"> <label class="control-label">Pickup Price</label>
+                            <input type="number" class="form-control input-lg" name="pickup_price" value="{{reseller_merchant.pickup_price}}" min="0" onKeyPress="if(this.value.length==3) return false;">
+                        </div>
+                        <div class="col"><label class="control-label">Ev Price</label>
+                            <input type="number" class="form-control input-lg" name="ev_price" value="{{reseller_merchant.ev_price}}" min="0" onKeyPress="if(this.value.length==3) return false;">
+                        </div>
+                        <div class="col"><label class="control-label">Truck Price</label>
+                            <input type="number" class="form-control input-lg" name="truck_price" value="{{reseller_merchant.truck_price}}" min="0" onKeyPress="if(this.value.length==3) return false;">
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 10px;">
+                        <div class="col"><label class="control-label">Custom Hours</label>
+                            <input type="number" class="form-control input-lg" name="custom_hours" value="{{reseller_merchant.custom_hours}}" min="1" onKeyPress="if(this.value.length==3) return false;">
+                        </div>
+                        <div class="col"><label class="control-label">Description</label>
+                            <input type="text" class="form-control input-lg" name="description" maxlength="50" value="{{reseller_merchant.description}}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div>
+                            <button type="submit" class="btn btn-primary btn-sm mt-3">
+                                Edit Now
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+{% endfor %}
+  <script>
+    function searchTable() {
+        var input, filter, found, table, tr, td, i, j;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("myTable");
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td");
+            for (j = 0; j < td.length; j++) {
+                if (td[j].innerHTML.toUpperCase().indexOf(filter) > -1) {
+                    found = true;
+                }
+            }
+            if (found) {
+                tr[i].style.display = "";
+                found = false;
+            } else {
+                tr[i].style.display = "none";
+            }
+        }
+    }
+    </script>
+
+
+  {% endblock %}

@@ -1,0 +1,350 @@
+{% extends 'parking_dashboard/admin_dashboard/parkinguser/base.html' %}  
+{% block content %}
+{% load static %}
+<style>
+  .daterangeinput{
+    border-radius: 5px;
+    margin: 0 !important;
+    padding: 5px !important;
+    border: 1px solid #e2e2e2;
+  }
+</style>
+<div class="container-fluid">
+  <div class="row">
+    {% if messages %}
+      {% for message in messages %}
+          <div class="alert alert-success">
+              {{ message }}
+          </div>
+      {% endfor %}
+  {% endif %}
+  <p>Hello, {{ request.session.username }}!</p>
+  <script>
+    window.addEventListener('beforeunload', function(event) {
+        // Remove the 'is_logged_in' session variable to mark the user as not logged in
+        fetch('/update_logout_status/', {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': '{{ csrf_token }}'
+            }
+        });
+    });
+    </script>
+    <div class="col-sm-6 col-xl-3">
+      <div class="card bg-light-primary shadow-none">
+        <div class="card-body p-4">
+          <div class="d-flex align-items-center">
+            <div class="round rounded bg-primary d-flex align-items-center justify-content-center">
+              <i class="cc BTC text-white fs-7" title="BTC"></i>
+            </div>
+            <h6 class="mb-0 ms-3">Today Bike Status</h6>
+            <!-- <div class="ms-auto text-primary d-flex align-items-center">
+              <i class="ti ti-trending-up text-primary fs-6 me-1"></i>
+              <span class="fs-2 fw-bold">+ 2.30%</span>
+            </div> -->
+          </div>
+          <div class="d-flex align-items-center justify-content-between mt-4">
+            <h3 class="mb-0 fw-semibold fs-7">{{bike_status}}</h3>
+            <!-- <span class="fw-bold">₹1,015.00</span> -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6 col-xl-3">
+      <div class="card bg-light-danger shadow-none">
+        <div class="card-body p-4">
+          <div class="d-flex align-items-center">
+            <div class="round rounded bg-danger d-flex align-items-center justify-content-center">
+              <i class="cc ETH text-white fs-7" title="ETH"></i>
+            </div>
+            <h6 class="mb-0 ms-3">Today Auto Status</h6>
+            <!-- <div class="ms-auto text-danger d-flex align-items-center">
+              <i class="ti ti-trending-up text-danger fs-6 me-1"></i>
+              <span class="fs-2 fw-bold">+ 3.20%</span>
+            </div> -->
+          </div>
+          <div class="d-flex align-items-center justify-content-between mt-4">
+            <h3 class="mb-0 fw-semibold fs-7">{{auto_status}}</h3>
+            <!-- <span class="fw-bold">₹2,110.00</span> -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6 col-xl-3">
+      <div class="card bg-light-success shadow-none">
+        <div class="card-body p-4">
+          <div class="d-flex align-items-center">
+            <div class="round rounded bg-success d-flex align-items-center justify-content-center">
+              <i class="cc LTC text-white fs-7" title="LTC"></i>
+            </div>
+            <h6 class="mb-0 ms-3">Today Car Status </h6>
+            <!-- <div class="ms-auto text-info d-flex align-items-center">
+              <i class="ti ti-trending-down text-success fs-6 me-1"></i>
+              <span class="fs-2 fw-bold text-success">+ 3.20%</span>
+            </div> -->
+          </div>
+          <div class="d-flex align-items-center justify-content-between mt-4">
+            <h3 class="mb-0 fw-semibold fs-7">{{car_status}}</h3>
+            <!-- <span class="fw-bold">₹1,100.00</span> -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm-6 col-xl-3">
+      <div class="card shadow-" style="background-color:#ff00c01c">
+        <div class="card-body p-4">
+          <div class="d-flex align-items-center">
+            <div class="round rounded bg-warning d-flex align-items-center justify-content-center">
+              <i class="cc XRP text-white fs-7" title="XRP"></i>
+            </div>
+            <h6 class="mb-0 ms-3">Today Pickup Status</h6>
+            <!-- <div class="ms-auto text-info d-flex align-items-center">
+              <i class="ti ti-trending-down text-warning fs-6 me-1"></i>
+              <span class="fs-2 fw-bold text-warning">+ 2.20%</span>
+            </div> -->
+          </div>
+          <div class="d-flex align-items-center justify-content-between mt-4">
+            <h3 class="mb-0 fw-semibold fs-7">{{pickup_status}}</h3>
+            {% comment %} <span class="fw-bold">0</span> {% endcomment %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> 
+  <div class="row">
+    <div class="col-sm-6 col-xl-3">
+      <div class="card shadow- mt-3" style="background-color:#a1ff001c">
+        <div class="card-body p-4">
+          <div class="d-flex align-items-center">
+            <div class="round rounded bg-warning d-flex align-items-center justify-content-center">
+              <i class="cc XRP text-white fs-7" title="XRP"></i>
+            </div>
+            <h6 class="mb-0 ms-3">Today Ev Status</h6>
+            <!-- <div class="ms-auto text-info d-flex align-items-center">
+              <i class="ti ti-trending-down text-warning fs-6 me-1"></i>
+              <span class="fs-2 fw-bold text-warning">+ 2.20%</span>
+            </div> -->
+          </div>
+          <div class="d-flex align-items-center justify-content-between mt-4">
+            <h3 class="mb-0 fw-semibold fs-7">{{ev_status}}</h3>
+            {% comment %} <span class="fw-bold">0</span> {% endcomment %}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm-6 col-xl-3">
+      <div class="card shadow- mt-3" style="background-color:#ff0c001c">
+        <div class="card-body p-4">
+          <div class="d-flex align-items-center">
+            <div class="round rounded bg-warning d-flex align-items-center justify-content-center">
+              <i class="cc XRP text-white fs-7" title="XRP"></i>
+            </div>
+            <h6 class="mb-0 ms-3">Today Truck Status</h6>
+            <!-- <div class="ms-auto text-info d-flex align-items-center">
+              <i class="ti ti-trending-down text-warning fs-6 me-1"></i>
+              <span class="fs-2 fw-bold text-warning">+ 2.20%</span>
+            </div> -->
+          </div>
+          <div class="d-flex align-items-center justify-content-between mt-4">
+            <h3 class="mb-0 fw-semibold fs-7">{{truck_status}}</h3>
+            {% comment %} <span class="fw-bold">0</span> {% endcomment %}
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="col-sm-6 col-xl-3">
+      <div class="card shadow- mt-3" style="background-color:#ff000k10">
+        <div class="card-body p-4">
+          <div class="d-flex align-items-center">
+            <div class="round rounded bg-warning d-flex align-items-center justify-content-center">
+              <i class="cc XRP text-white fs-7" title="XRP"></i>
+            </div>
+            <h6 class="mb-0 ms-3">Total (In Parking)</h6>
+            <!-- <div class="ms-auto text-info d-flex align-items-center">
+              <i class="ti ti-trending-down text-warning fs-6 me-1"></i>
+              <span class="fs-2 fw-bold text-warning">+ 2.20%</span>
+            </div> -->
+          </div>
+          <div class="d-flex align-items-center justify-content-between mt-4">
+            <h3 class="mb-0 fw-semibold fs-7">{{in_data}}</h3>
+            <span class="fw-bold">₹{{total_amount_in}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="col-sm-6 col-xl-3">
+      <div class="card shadow- mt-3" style="background-color:#ff000f1c">
+        <div class="card-body p-4">
+          <div class="d-flex align-items-center">
+            <div class="round rounded bg-warning d-flex align-items-center justify-content-center">
+              <i class="cc XRP text-white fs-7" title="XRP"></i>
+            </div>
+            <h6 class="mb-0 ms-3">Today (Out Parking)</h6>
+            <!-- <div class="ms-auto text-info d-flex align-items-center">
+              <i class="ti ti-trending-down text-warning fs-6 me-1"></i>
+              <span class="fs-2 fw-bold text-warning">+ 2.20%</span>
+            </div> -->
+          </div>
+          <div class="d-flex align-items-center justify-content-between mt-4">
+            <h3 class="mb-0 fw-semibold fs-7">{{out_data}}</h3>
+            <span class="fw-bold">₹{{total_amount_all}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="d-flex" style="align-items: center;">
+      <div class="col-sm-12 col-xl-4">
+          <div style="margin-top: 0px;">
+              <input class="form-control mt-3 mb-3" id="myInput" onkeyup='searchTable()' type="text" placeholder="Search..">
+          </div>
+      </div>
+      <div class="col-sm-12 col-xl-8">  
+
+        <div class="daterange d-flex float-end">
+          <a class="btn btn-primary ms-3"  href="{% url 'user_report' %}">User Report</a>
+          <form method="post" action="{% url 'user_report_download_range' %}" class="ms-3">
+            {% csrf_token %}
+            <input type="date" name="start_date" class="daterangeinput" required>
+            <input type="date" name="end_date" class="daterangeinput" required>
+            <input type="submit" name="submit" value="Download Report" class="btn btn-primary">
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="container">
+      <div>
+              <div class="table-responsive">
+                <table id="file_export" class="table border table-striped table-bordered display text-nowrap">
+                  <thead>
+                    <!-- start row -->
+                    <tr>
+                      <th>Captcha</th>
+                      <th>Name</th>
+                      <th>Parking Id</th>
+                      <th>Mobile</th>
+                      <th>Status</th>
+                      <th>Time_Status</th>
+                      <th>Vehicle.No</th>
+                      <th>Price</th>
+                      <th>Vehicle_Hour</th>
+                      <th>Created Date</th>
+                      <th>Vehicle_Out_Time</th>
+                      
+                    </tr>
+                    <!-- end row -->
+                  </thead>
+                  <tbody id='myTable'>
+                    {% for pk in page %}
+                    <!-- start row -->
+                    <tr>
+                      <td>
+                        {% if pk.captcha %}
+                          <img src="{{ pk.captcha.url }}" style="width:80px">
+                        {% else %}
+                          No Captcha Image
+                        {% endif %}
+                      </td>
+                      <td>{{pk.name}}</td>
+                      <td>{{pk.parking_id}}</td>
+                      <td>{{pk.mobile}}</td>
+                      <td>{{pk.status}}</td>
+                      <td>{{pk.time_status}}</td>
+                      <td>{{pk.vehicle_number}}</td>
+                      <td>{{pk.price}}</td>
+                      <td>{{pk.vehicle_hour}}</td>
+                      <td>{{pk.created_on}}</td>
+                      <td>{{pk.vehicle_out_time}}</td>
+
+                    </tr>
+
+                    {% endfor %}
+                
+                  </tbody>
+                </table>
+              </div>
+              <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                  <li class="page-item">
+                    <a class="page-link" href="?page=1" aria-label="First">
+                      <span aria-hidden="true">&laquo;</span>
+                    </a>
+                  </li>
+                  
+                  {% if page.has_previous %}
+                    <li class="page-item">
+                      <a class="page-link" href="?page={{ page.previous_page_number }}" aria-label="Previous">
+                        <span aria-hidden="true">&lsaquo;</span>
+                      </a>
+                    </li>
+                  {% endif %}
+                  
+                  {% for num in page.paginator.page_range %}
+                    <li class="page-item {% if num == page.number %}active{% endif %}">
+                      <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                    </li>
+                  {% endfor %}
+                  
+                  {% if page.has_next %}
+                    <li class="page-item">
+                      <a class="page-link" href="?page={{ page.next_page_number }}" aria-label="Next">
+                        <span aria-hidden="true">&rsaquo;</span>
+                      </a>
+                    </li>
+                  {% endif %}
+                  
+                  <li class="page-item">
+                    <a class="page-link" href="?page={{ page.paginator.num_pages }}" aria-label="Last">
+                      <span aria-hidden="true">&raquo;</span>
+                    </a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+        </div>
+  </div>
+</div>
+
+
+
+
+  
+
+
+  <script>
+    function searchTable() {
+        var input, filter, found, table, tr, td, i, j;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("myTable");
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td");
+            for (j = 0; j < td.length; j++) {
+                if (td[j].innerHTML.toUpperCase().indexOf(filter) > -1) {
+                    found = true;
+                }
+            }
+            if (found) {
+                tr[i].style.display = "";
+                found = false;
+            } else {
+                tr[i].style.display = "none";
+            }
+        }
+    }
+    </script>
+
+
+
+
+{% endblock %}

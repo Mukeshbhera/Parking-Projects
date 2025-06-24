@@ -1,0 +1,84 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!--  Title -->
+    <title>Mordenize</title>
+    <!--  Required Meta Tag -->
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="handheldfriendly" content="true" />
+    <meta name="MobileOptimized" content="width" />
+    <meta name="description" content="Mordenize" />
+    <meta name="author" content="" />
+    <meta name="keywords" content="Mordenize" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!--  Favicon -->
+    <link rel="shortcut icon" type="image/png" href="{% static 'admin_css_js/dist/images/logos/favicon.ico' %}" />
+    <!-- Core Css -->
+    <link  id="themeColors"  rel="stylesheet" href="{% static 'admin_css_js/dist/css/style.min.css' %}" />
+  </head>
+  <body>
+    <!--  Body Wrapper -->
+    <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-sidebartype="full" data-sidebar-position="fixed" data-header-position="fixed">
+      <div class="position-relative overflow-hidden radial-gradient min-vh-100">
+        <div class="position-relative z-index-5">
+          <div class="row">
+            <div class="col-lg-6 col-xl-8 col-xxl-9">
+              <a href="./index.html" class="text-nowrap logo-img d-block px-4 py-9 w-100">
+                {% comment %} <img src="{% static 'admin_css_js/dist/images/logos/dark-logo.svg' %}" width="180" alt=""> {% endcomment %}
+                <img src="{% static 'front-template/static/img/logo1.png' %}" alt="" class="w-25">
+
+              </a>
+              <div class="d-none d-lg-flex align-items-center justify-content-center" style="height: calc(100vh - 80px);">
+                <img src="{% static 'admin_css_js/dist/images/backgrounds/login-security.svg' %}" alt="" class="img-fluid" width="500">
+              </div>
+            </div>
+            <div class="col-lg-6 col-xl-4 col-xxl-3">
+              <div class="card mb-0 shadow-none rounded-0 min-vh-100 h-100">
+                <div class="d-flex align-items-center w-100 h-100">
+                  <div class="card-body">
+                    <div class="mb-5">
+                      {% if messages %}
+                        {% for message in messages %}
+                          <div class="alert alert-success">
+                            {{ message }}
+                          </div>
+                        {% endfor %}
+                      {% endif %}
+                      <h3 class="fw-bolder fs-7 mb-3">OTP Verification</h3>
+                      <p>We sent a verification code to your mobile. Enter the code from the mobile in the field below.</p>
+                      <h6 class="fw-bolder">******1234</h6>
+                    </div>
+                    <form action="{% url 'verify_otp' user_id=user.id %}" method="POST">
+                      {% csrf_token %}
+                      <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label fw-semibold">Type your 5 digits security code</label>
+                        <div class="d-flex align-items-center gap-2 gap-sm-3">
+                          <input type="text" name="otp" maxlength="5" minlength="5" class="form-control" placeholder="00000" required>
+                          <!-- <input type="text" name="otp" maxlength="1" minlength="1" class="form-control" placeholder="">
+                          <input type="text" name="otp" maxlength="1" minlength="1" class="form-control" placeholder="">
+                          <input type="text" name="otp" maxlength="1" minlength="1" class="form-control" placeholder="">
+                          <input type="text" name="otp" maxlength="1" minlength="1" class="form-control" placeholder=""> -->
+                          <!-- <input type="text" class="form-control" placeholder=""> -->
+                        </div>
+                      </div>
+                      <input type="submit" value="Verify My Account" class="btn btn-primary w-100 py-8 mb-4">
+                      <!-- <a href="javascript:void(0)" class="btn btn-primary w-100 py-8 mb-4">Verify My Account</a> -->
+                      <div class="d-flex align-items-center">
+                        <p class="fs-4 mb-0 text-dark">Didn't get the code?</p>
+                        <a class="text-primary fw-medium ms-2" href="javascript:void(0)">Resend</a>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+    
+  </body>
+</html>

@@ -1,0 +1,331 @@
+{% extends 'front-layout/base.html' %}  
+{% block content %}
+{% load static %}
+  
+  <!-- Main Start -->
+  <main>
+
+    <!-- Home Banner Start -->
+    <section id="homea" class="home-banner-02 theme-g-bg1  rounded">
+      <div class="bg-effect">
+        <img src="{% static 'front-template/static/img/bg-effect-1.svg' %}" title="" alt="">
+      </div>
+      <div class="container">
+        <div class="row  bg-content align-items-center">
+          <div class="col col-md-10 col-lg-6 col-xl-6 p-80px-tb md-p-30px-b">
+            <div class="home-text-center theme-after m-50px-t md-m-20px-t">
+              <h1 class="font-alt">High Performance in Wide Area is Our Gurantee.</h1>
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+              <div class="app-btn-set">
+                <a href="#" class="m-btn m-btn-white" data-text="Free Trial">Read More</a>
+              </div>
+
+            </div> <!-- home-text-center -->
+          </div> <!-- col -->
+          <div class="col-md-12 col-lg-6 col-xl-6 home-right">           
+            <form action="{% url 'frontuser' %}" method="POST" class="row g-3 bg-light p-3 rounded">
+              {% csrf_token %}
+              <h2>Contact Now</h2>
+              <div class="row w-100">
+
+              <div class="col-md-6">
+                <label class="form-label">Name</label>
+                <input type="text" name="name" class="form-control w-100" placeholder="Enter full name" required>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Email Id</label>
+                <input type="email" name="email" class="form-control w-100" placeholder="Email id" required>
+              </div>
+            </div>
+            <div class="row w-100 pt-2">
+              
+              <div class="col-md-6">
+                <label class="form-label">Mobile Number</label>
+                <input type="tel" name="mobile_number" minlength="10" maxlength="10" class="form-control w-100" placeholder="Mobile number" required>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Address</label>
+                <input type="text" name="address" class="form-control w-100" placeholder="Enter full address" required>
+              </div>
+            </div>
+            <div class="row w-100 pt-2">
+              <div class="col-12">
+                  <label class="form-label">Message & Query</label>
+                  <textarea name="message" class="form-control w-100" placeholder="Enter message & query....." style="height: 100px;"></textarea>
+              </div>
+            </div>
+              <div class="col-12 pt-3">
+                <button type="submit" class="btn btn1">Submit Now</button>
+                {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-success mt-3">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+              </div>
+            </form>
+          </div>
+        </div>
+
+      </div><!-- container -->
+      
+    </section>
+    <!-- Home Banner End -->
+
+     <!-- Service Start -->
+    <section id
+    
+    
+    ="about" class="section about-section gray-bg">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="feature-box-03">
+              <h4 class="font-alt">About Us</h4>
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+              cillum dolore eu fugiat nulla pariatur.</p>
+              <a href="#" class="m-btn m-btn-t-theme">Get Start</a>
+            </div>
+
+          </div>
+          <div class="col-lg-6 about-img">
+            <img src="{% static 'front-template/static/img/home-banner-4.jpg' %}" title="" alt="">
+          </div>
+        
+ 
+          
+
+        </div> <!-- row -->
+      </div> <!-- container -->
+    </section>
+   
+    <!-- Services -->
+    <section id="Service" class="section">
+      <div class="container">
+        <div class="row justify-content-center m-45px-b sm-m-30px-b">
+          <div class="col-12 col-md-10 col-lg-7">
+            <div class="section-title text-center">
+              <h2 class="font-alt">Our Services</h2>
+              <div class="title-border"><span class="lg"></span><span class="md"></span><span class="sm"></span></div>
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 m-15px-tb col-lg-4">
+            <div class="feature-box-05">
+              <i class="icon ti-ruler-pencil"></i>
+              <div class="feature-content">
+                <h5>Service1</h5>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit, sed do eiusmod.</p>
+              </div>
+            </div>
+          </div> <!-- col -->
+
+          <div class="col-md-6 m-15px-tb col-lg-4">
+            <div class="feature-box-05">
+              <i class="icon ti-image"></i>
+              <div class="feature-content">
+                <h5>Service2</h5>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit, sed do eiusmod.</p>
+              </div>
+            </div>
+          </div> <!-- col -->
+
+          <div class="col-md-6 m-15px-tb col-lg-4">
+            <div class="feature-box-05">
+              <i class="icon ti-layout"></i>
+              <div class="feature-content">
+                <h5>Service3</h5>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit, sed do eiusmod.</p>
+              </div>
+            </div>
+          </div> <!-- col -->
+
+       
+        </div> <!-- row -->
+      </div> <!-- Container -->
+    </section>
+    <!-- / -->
+ 
+    <section class="   feature  border-bottom" id="feature">
+      <div class="container">
+        <div class="row align-items-center justify-content-center  feature-content">
+          <div class="col-md-6 sm-m-30px-b">
+            <div class="feature-box-04">
+                
+                <h4 class="font-alt">Works everywhere you go</h4>
+                <p class="m-40px-b">Lorem ipsum dolor sit amet consectetur adipisicing elit. Est pariatur hic perspiciatis tenetur, animi non soluta minima et nisi ipsam expedita doloribus! Sequi earum veniam magni animi dolorem adipisci. Cumque, porro.   .</p>
+                <a href="#" class="m-btn-t-dark">Get Start</a>
+            </div>
+          </div> <!-- col -->
+          <div class="col-md-6 text-center">
+            <img src="{% static 'front-template/static/img/feature-04.png' %}" title="" alt="">
+          </div> <!-- col -->
+        </div> <!-- row -->        
+      </div>
+    </section>
+    
+
+    <!-- Testimonial -->
+    <section class="section testimonial-section gray-bg">
+      <div class="container">
+        <div class="row justify-content-center m-30px-b sm-m-10px-b">
+          <div class="col-12 col-md-10 col-lg-7">
+            <div class="section-title text-center">
+              <h2 class="font-alt">What People Say?</h2>
+              <div class="title-border"><span class="lg"></span><span class="md"></span><span class="sm"></span></div>
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            </div>
+          </div>
+        </div>
+
+
+        <div id="customers-testimonials" class="owl-carousel">
+
+          <!--TESTIMONIAL 1 -->
+          <div class="item">
+            <div class="shadow-effect">
+              <img class="img-circle" src="http://themes.audemedia.com/html/goodgrowth/images/testimonial3.jpg" alt="">
+              <p>Dramatically maintain clicks-and-mortar solutions without functional solutions. Completely synergize resource taxing relationships via premier niche markets. Professionally cultivate.</p>
+            </div>
+            <div class="testimonial-name">EMILIANO AQUILANI</div>
+          </div>
+          <!--END OF TESTIMONIAL 1 -->
+          <!--TESTIMONIAL 2 -->
+          <div class="item">
+            <div class="shadow-effect">
+              <img class="img-circle" src="http://themes.audemedia.com/html/goodgrowth/images/testimonial3.jpg" alt="">
+              <p>Dramatically maintain clicks-and-mortar solutions without functional solutions. Completely synergize resource taxing relationships via premier niche markets. Professionally cultivate.</p>
+            </div>
+            <div class="testimonial-name">ANNA ITURBE</div>
+          </div>
+          <!--END OF TESTIMONIAL 2 -->
+          <!--TESTIMONIAL 3 -->
+          <div class="item">
+            <div class="shadow-effect">
+              <img class="img-circle" src="http://themes.audemedia.com/html/goodgrowth/images/testimonial3.jpg" alt="">
+              <p>Dramatically maintain clicks-and-mortar solutions without functional solutions. Completely synergize resource taxing relationships via premier niche markets. Professionally cultivate.</p>
+            </div>
+            <div class="testimonial-name">LARA ATKINSON</div>
+          </div>
+          <!--END OF TESTIMONIAL 3 -->
+          <!--TESTIMONIAL 4 -->
+          <div class="item">
+            <div class="shadow-effect">
+              <img class="img-circle" src="http://themes.audemedia.com/html/goodgrowth/images/testimonial3.jpg" alt="">
+              <p>Dramatically maintain clicks-and-mortar solutions without functional solutions. Completely synergize resource taxing relationships via premier niche markets. Professionally cultivate.</p>
+            </div>
+            <div class="testimonial-name">IAN OWEN</div>
+          </div>
+          <!--END OF TESTIMONIAL 4 -->
+          <!--TESTIMONIAL 5 -->
+          <div class="item">
+            <div class="shadow-effect">
+              <img class="img-circle" src="http://themes.audemedia.com/html/goodgrowth/images/testimonial3.jpg" alt="">
+              <p>Dramatically maintain clicks-and-mortar solutions without functional solutions. Completely synergize resource taxing relationships via premier niche markets. Professionally cultivate.</p>
+            </div>
+            <div class="testimonial-name">MICHAEL TEDDY</div>
+          </div>
+          <!--END OF TESTIMONIAL 5 -->
+        </div>
+
+      </div> <!-- container -->
+    </section>
+    <!--  Testimonial End  -->
+ 
+
+    <!-- Contact Start -->
+    <section id="contatus" class="section  ">
+      <div class="container">
+        <div class="row justify-content-center m-45px-b sm-m-25px-b">
+          <div class="col-12 col-md-10 col-lg-7">
+            <div class="section-title text-center">
+              <h2 class="font-alt">Contact Us</h2>
+              <div class="title-border"><span class="lg"></span><span class="md"></span><span class="sm"></span></div>
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            </div>
+          </div>
+        </div>
+
+        
+        <div class="row justify-content-center">
+          <div class="col-md-6 col-lg-4">
+            <div class="contact-info theme-g-bg">
+              <div class="ci-row">
+                <label>For General Enquiries</label>
+                <span>infobiz@singhtek.com</span>
+              </div>
+              <div class="ci-row">
+                <label>Talk with us</label>
+                <span>+91 946 1800 909</span>
+              </div>
+
+              <div class="ci-row">
+                <label>Address</label>
+                <span>DCM,  Ajmer Road, Vaishali Nagar, Jaipur</span>
+              </div>
+              <ul class="social-icons">
+                  <li><a class="facebook" href="#"><i class="fab fa-facebook-f"></i></a></li>
+                  <li><a class="twitter" href="#"><i class="fab fa-twitter"></i></a></li>
+                  <li><a class="google" href="#"><i class="fab fa-google-plus-g"></i></a></li>
+                  <li><a class="linkedin" href="#"><i class="fab fa-linkedin-in"></i></a></li>
+                </ul>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-6">
+            <div class="contact-form">
+                    <h2>Say Something</h2>
+                    <form class="" action="{% url 'frontuser' %}" method="POST">
+                      {% csrf_token %}
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <input id="name" name="name" type="text" placeholder="Name" class="validate form-control" required>
+                            <span class="input-focus-effect"></span>
+                          </div>
+                          </div>
+                          <div class="col-md-6">
+                          <div class="form-group">
+                            <input id="email" type="email" placeholder="Email" name="email" class="validate form-control" required>
+                            <span class="input-focus-effect"></span>
+                          </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <input type="tel" placeholder="Mobile Number" maxlength="10" minlength="10" name="mobile_number" class="validate form-control" required>
+                              <span class="input-focus-effect"></span>
+                            </div>
+                            </div>
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <input type="text" placeholder="Address" name="address" class="validate form-control" required>
+                                <span class="input-focus-effect"></span>
+                              </div>
+                              </div>
+                          <div class="col-md-12">
+                          <div class="form-group">
+                            <textarea id="message" placeholder="Your Comment" name="message" class="form-control" required></textarea>
+                            <span class="input-focus-effect"></span>
+                          </div>
+                         </div>
+                          <div class="col-md-12">
+                            <div class="send">
+                               <button class="m-btn m-btn-theme" type="submit" name="send"> Send Message</button>
+                            </div>
+                          </div>
+                        </div>
+                    </form>
+                </div>
+          </div>
+        </div>
+      </div> <!-- Container -->
+    </section>
+    <!-- Contact End -->
+    
+  </main>
+  <!-- Main End -->
+
+  {% endblock %}

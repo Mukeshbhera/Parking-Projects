@@ -1,0 +1,104 @@
+{% extends 'parking_dashboard/admin_dashboard/base.html' %}  
+{% block content %}
+{% load static %}
+
+
+<div class="container-fluid note-has-grid">
+  <div class="row">
+    <div class="d-flex">
+      <div class="col-md-6 col-xl-6">
+          <div style="margin-top: 0px;">
+              <input class="form-control mt-3 mb-3" id="myInput" onkeyup='searchTable()' type="text" placeholder="Search..">
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+      <!-- table data row -->
+      <i class='bx bx-check-shield'></i>
+      <div class="container">
+          <div>
+            <div class="table-responsive" style="margin-top: 30px;">
+                  {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-success">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+                  <h5 class="mb-3">All Merchant </h5>
+                </div>
+
+                <div class="table-responsive">
+                  <table id="file_export" class="table border table-striped table-bordered display text-nowrap">
+                    <thead>
+                      <!-- start row -->
+                      <tr>
+                        <th>Name</th>
+                        <th>Email Id</th>
+                        <th>Merchant Id</th>
+                        <th>Mobile</th>
+                        <th>Status</th>
+                        <th>Created Date</th>
+                        <th>Parking_User</th>
+                      </tr>
+                      <!-- end row -->
+                    </thead>
+                    <tbody id='myTable'>
+                      {% for marchants in merchant %}
+                      <!-- start row -->
+                      <tr>
+                        <td>{{marchants.name}}</td>
+                        <td>{{marchants.email}}</td>
+                        <td>{{marchants.merchant_id}}</td>
+                        <td>{{marchants.mobile}}</td>
+                        <td>{{marchants.status}}</td>
+                        <td>{{marchants.created_on}}</td>
+                        <td>
+                            <a class="btn btn-primary" href="{% url 'merchant_parking_user_all' pk=marchants.id %}">View Parking User</a>
+                      </td>
+
+                      </tr>
+                      {% endfor %}
+                  
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+       
+
+  </div>
+
+  {% comment %} reseller {% endcomment %}
+
+  
+  <script>
+    function searchTable() {
+        var input, filter, found, table, tr, td, i, j;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("myTable");
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td");
+            for (j = 0; j < td.length; j++) {
+                if (td[j].innerHTML.toUpperCase().indexOf(filter) > -1) {
+                    found = true;
+                }
+            }
+            if (found) {
+                tr[i].style.display = "";
+                found = false;
+            } else {
+                tr[i].style.display = "none";
+            }
+        }
+    }
+    </script>
+
+
+  {% endblock %}

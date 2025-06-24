@@ -1,0 +1,158 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+ 
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+ 
+  <title>Parking</title>
+  <!-- / -->
+
+  <!---Font Icon-->
+  <link href="{% static 'front-template/static/plugin/font-awesome/css/fontawesome-all.min.css' %}" rel="stylesheet">
+  <link href="{% static 'front-template/static/plugin/themify-icons/themify-icons.css' %}" rel="stylesheet">
+  <!-- / -->
+
+  <!-- Plugin CSS -->
+  <link href="{% static 'front-template/static/plugin/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.1.1/assets/owl.carousel.min.css'>
+  <link rel='stylesheet' href='http://themes.audemedia.com/html/goodgrowth/css/owl.theme.default.min.css'>
+  <!-- / -->
+
+  <!-- Theme Style -->
+  <link href="{% static 'front-template/static/css/styles.css' %}" rel="stylesheet">
+  <link href="{% static 'front-template/static/css/color/default.css' %}" rel="stylesheet" id="color_theme">
+  <!-- / -->
+  <style>
+    .login-btn {
+    background: #f3755c;
+    color: white !important;
+    font-size: 14px !important;
+    padding: 5px 10px !important;
+    font-weight: 600 !important;
+}
+</style>
+ 
+</head>
+
+<!-- Body Start -->
+<body data-spy="scroll" data-target="#navbar" data-offset="98">
+
+ 
+  <!-- / -->
+
+  <!-- Header -->
+  <header>
+    <nav class="navbar header-nav fixed-top navbar-expand-lg">
+      <div class="container">
+        <!-- Brand -->
+        <a class="navbar-brand p-0"> 
+          <img src="{% static 'front-template/static/img/logo1.png' %}" alt="" class="w-100 navbar-brand p-0">
+          <span class="theme-bg"></span></a> 
+        <!-- / -->
+    
+        <!-- Mobile Toggle -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <!-- / -->
+
+        <!-- Top Menu -->
+        <div class="collapse navbar-collapse justify-content-end" id="navbar">
+          <ul class="navbar-nav">
+            <li><span class="sub-menu-toggle"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="ti-angle-down"></i></span> <a class="nav-link" href="#homea">Home</a>
+              
+            </li>
+            <li><a class="nav-link" href="#about">About Us</a></li>
+            <li><a class="nav-link" href="#Service">Services</a></li>
+            <li><a class="nav-link" href="#feature">Feature</a></li>
+            
+            <li><a class="nav-link" href="#contatus">Contact us</a></li>
+            <li><a class="nav-link login-btn" href="/login-user/">Login</a></li>
+          </ul>
+        </div>
+        <!-- / -->
+
+      </div><!-- Container -->
+    </nav> <!-- Navbar -->
+  </header>
+  <!-- Header End -->
+
+
+
+    {% block content %}
+
+    {% endblock %}
+
+
+  
+  <!-- Footer-->
+  <footer class="footer theme-bg">
+    <section class="footer-section">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-3 col-lg-6 sm-m-15px-tb">
+            <h4 class="font-alt">About Us</h4>
+            <p class="footer-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+            quis nostrud exercitation</p>
+            <ul class="social-icons">
+              <li><a class="facebook" href="#"><i class="fab fa-facebook-f"></i></a></li>
+              <li><a class="twitter" href="#"><i class="fab fa-twitter"></i></a></li>
+              <li><a class="google" href="#"><i class="fab fa-google-plus-g"></i></a></li>
+              <li><a class="linkedin" href="#"><i class="fab fa-linkedin-in"></i></a></li>
+            </ul>
+          </div> <!-- col -->
+
+         
+
+          <div class="col-6 col-md-3 col-lg-2 sm-m-15px-tb">
+            <h4 class="font-alt">Company</h4>
+            <ul class="fot-link">
+                <li><a href="#">About</a></li>
+                <li><a href="#">Services</a></li>
+                <li><a href="#">Feature</a></li>
+                 <li><a href="#">Contact</a></li>
+              </ul>
+          </div>
+
+          <div class="col-md-3 col-lg-3 sm-m-15px-tb">
+            <h4 class="font-alt">Get in touch</h4>
+            <p>DCM,  Ajmer Road, Vaishali Nagar, Jaipur</p>
+            <p><span>E-Mail:</span>infobiz@singhtek.com </p>
+            <p><span>Phone:</span>+91 946 1800 909</p>
+          </div> <!-- col -->
+
+        </div>
+        
+        <div class="footer-copy">
+          <div class="row">
+            <div class="col-12">
+              <p>All © Copyright by ParkGo . All Rights Reserved.</p>
+            </div><!-- col -->
+          </div> <!-- row -->
+        </div> <!-- footer-copy -->
+
+      </div> <!-- container -->   
+    </section>
+  </footer>
+
+    <script src="{% static 'front-template/static/js/jquery-3.2.1.min.js' %}"></script>
+  
+  <script src="{% static 'front-template/static/plugin/bootstrap/js/bootstrap.min.js' %}"></script>
+
+  <script src='//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.1.1/owl.carousel.min.js'></script>
+ 
+
+ 
+  <script src="{% static 'front-template/static/js/custom.js' %}"></script>
+</body>
+ 
+</html>

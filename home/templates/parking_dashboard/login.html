@@ -1,0 +1,115 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Login - Brand</title>
+    <link rel="stylesheet" href="{% static 'assets/bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
+    <link rel="stylesheet" href="{% static 'assets/fonts/fontawesome-all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/fonts/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/fonts/fontawesome5-overrides.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/popbox.css' %}">
+
+    <script>
+        window.addEventListener('beforeunload', function(event) {
+            // Remove the 'is_logged_in' session variable to mark the user as not logged in
+            fetch('/update_logout_status/', {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}'
+                }
+            });
+        });
+        </script>
+    <style>
+        span.fa.fa-fw.fa-eye.field-icon.toggle-password {
+            float: right;
+            position: relative;
+            right: 6%;
+            top: -32px;
+        }
+    </style>
+</head>
+
+<body class="bg-gradient-primary">
+    <div class="pt-5">
+        <img src="{% static 'logo/Parkgo-logo-white.png' %}" class="img-fluid mx-auto d-block" style="height: auto; width: 200px;">   
+    </div>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-9 col-lg-12 col-xl-10">
+                <div class="card shadow-lg o-hidden border-0 my-5">
+                    <div class="card-body p-0">
+                        <div class="row">
+                            <div class="col-lg-6 d-none d-lg-flex">
+                                <div class="flex-grow-1 bg-login-image" style="background-image: url({% static 'assets/img/dogs/parking-done.gif' %});"></div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="p-5">
+                                    <div class="text-center">
+                                        {% if messages %}
+                                            {% for message in messages %}
+                                                <div class="alert alert-success">
+                                                    {{ message }}
+                                                </div>
+                                            {% endfor %}
+                                        {% endif %}
+
+                                        {% if request.session.is_logged_in %}
+                                        <p>Welcome! You are logged in.</p>
+                                        {% else %}
+                                            <p>You are not logged in.</p>
+                                        {% endif %}
+                                        <h4 class="text-dark mb-4">Welcome Back!</h4>
+                                    </div>
+                                    <form class="user" method="POST" action="{% url 'login' %}">
+                                        {% csrf_token %}
+                                        <div class="mb-3">
+                                            <input class="form-control form-control-user" type="email" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Email Address..." name="username">
+                                        </div>
+                                        <div class="mb-3">
+                                            <input class="form-control form-control-user" type="password" id="exampleInputPassword" placeholder="Password" name="password">
+                                            {% comment %} <input type="checkbox" id="showPassword"> Show Password {% endcomment %}
+                                            <span toggle="#exampleInputPassword" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+                                        </div>
+                                        <div class="mb-3">
+                                            <div class="custom-control custom-checkbox small">
+                                                <div class="form-check">
+                                                    <div class="g-recaptcha" data-sitekey="6LeGHJUnAAAAAEr-yA8bnEyYxJshfyj0XlNF5QgS"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <button class="btn btn-primary d-block btn-user w-100" name="submit" type="submit">Login</button>
+                                        <!-- <hr><a class="btn btn-primary d-block btn-google btn-user w-100 mb-2" role="button"><i class="fab fa-google"></i>&nbsp; Login with Google</a>
+                                        <a class="btn btn-primary d-block btn-facebook btn-user w-100" role="button"><i class="fab fa-facebook-f"></i>&nbsp; Login with Facebook</a> -->
+                                        <hr>
+                                    </form>
+                                    <div class="text-center"><a class="small" href="{% url 'forgot_password' %}">Forgot Password?</a></div>
+                                    <!-- <div class="text-center"><a class="small" href="">Create an Account!</a></div> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <script src="{% static 'assets/bootstrap/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'assets/js/theme.js' %}"></script>
+    <script>
+        document.querySelector('.toggle-password').addEventListener('click', function() {
+            var passwordInput = document.querySelector(this.getAttribute('toggle'));
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+            } else {
+                passwordInput.type = 'password';
+            }
+        });
+    </script>
+</body>
+
+</html>
